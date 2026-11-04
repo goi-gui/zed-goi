@@ -29,6 +29,9 @@ echo "building the grammar"
 	-fPIC -shared -O2 -I"$here/tree-sitter-goi/src" \
 	"$here/tree-sitter-goi/src/parser.c" -o "$here/tree-sitter-goi/goi.wasm"
 
+echo "checking queries"
+python3 "$here/check-queries.py"
+
 echo "building the extension"
 (cd "$here" && cargo build --release --target wasm32-wasip2 --quiet)
 

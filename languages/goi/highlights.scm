@@ -27,7 +27,7 @@
 (for_block
   value: (identifier) @variable)
 
-;; A declared data variable reads as a field; its type as a type.
+;; A declared row type reads as a type.
 (data_shape
   name: (identifier) @type)
 
@@ -47,8 +47,7 @@
 (property
   name: (identifier) @property)
 
-;; A declaration's name is a field; its type reads as a type. A handler
-;; declaration (`OnOpen func(id string)`) reads as a function instead.
+;; A declaration's name is a field.
 (declaration
   name: (identifier) @property)
 
@@ -59,10 +58,6 @@
 
 (map_entry
   name: (identifier) @attribute)
-
-;; Declarations read as Go fields: the name is a field, the type is a type.
-(declaration
-  name: (identifier) @property)
 
 (map_type "map" @type)
 
