@@ -10,12 +10,12 @@ Window {
 ---
 
 (source_file
-  (element
-    (element_name)
+  root: (element
+    name: (element_name)
     (property
-      (identifier)
-      (value
-        (or_expression
+      name: (identifier)
+      value: (value
+        condition: (or_expression
           (and_expression
             (equality_expression
               (comparison_expression
@@ -25,9 +25,9 @@ Window {
                       (primary
                         (identifier)))))))))))
     (property
-      (identifier)
-      (value
-        (or_expression
+      name: (identifier)
+      value: (value
+        condition: (or_expression
           (and_expression
             (equality_expression
               (comparison_expression
@@ -41,454 +41,16 @@ Window {
 Nested elements and inline properties
 ==================
 
-Column { spacing: 8 align: center }
-
----
-
-(source_file
-  (element
-    (element_name)
-    (property
-      (identifier)
-      (value
-        (or_expression
-          (and_expression
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (number)))))))))))
-    (property
-      (identifier)
-      (value
-        (or_expression
-          (and_expression
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (identifier)))))))))))))
-
-==================
-Numbers, colours, booleans
-==================
-
-Rectangle {
-	width: 10.5
-	height: -1
-	background: #6750A4
-	borderColor: #fff
-	visible: false
-	radius: 2
+Window {
+	Column {
+		padding: 16
+		Row { spacing: 8 Button { label: "Go" } }
+	}
 }
 
 ---
 
 (source_file
-  (element
-    (element_name)
-    (property
-      (identifier)
-      (value
-        (or_expression
-          (and_expression
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (number)))))))))))
-    (property
-      (identifier)
-      (value
-        (or_expression
-          (and_expression
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (unary_expression
-                        (primary
-                          (number))))))))))))
-    (property
-      (identifier)
-      (value
-        (or_expression
-          (and_expression
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (color)))))))))))
-    (property
-      (identifier)
-      (value
-        (or_expression
-          (and_expression
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (color)))))))))))
-    (property
-      (identifier)
-      (value
-        (or_expression
-          (and_expression
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (boolean)))))))))))
-    (property
-      (identifier)
-      (value
-        (or_expression
-          (and_expression
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (number)))))))))))))
-
-==================
-Responsive map
-==================
-
-Column {
-	padding: { base: 8, md: 16, lg: 24 }
-}
-
----
-
-(source_file
-  (element
-    (element_name)
-    (property
-      (identifier)
-      (value
-        (or_expression
-          (and_expression
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (map
-                          (map_entry
-                            (identifier)
-                            (value
-                              (or_expression
-                                (and_expression
-                                  (equality_expression
-                                    (comparison_expression
-                                      (sum_expression
-                                        (term_expression
-                                          (unary_expression
-                                            (primary
-                                              (number)))))))))))
-                          (map_entry
-                            (identifier)
-                            (value
-                              (or_expression
-                                (and_expression
-                                  (equality_expression
-                                    (comparison_expression
-                                      (sum_expression
-                                        (term_expression
-                                          (unary_expression
-                                            (primary
-                                              (number)))))))))))
-                          (map_entry
-                            (identifier)
-                            (value
-                              (or_expression
-                                (and_expression
-                                  (equality_expression
-                                    (comparison_expression
-                                      (sum_expression
-                                        (term_expression
-                                          (unary_expression
-                                            (primary
-                                              (number))))))))))))))))))))))))
-
-==================
-Percentages and arithmetic
-==================
-
-Row {
-	width: 50%
-	height: 50% - 8
-	margin: (side.width + 40) * 0.5
-}
-
----
-
-(source_file
-  (element
-    (element_name)
-    (property
-      (identifier)
-      (value
-        (or_expression
-          (and_expression
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (percentage
-                          (number)
-                          (percent_sign))))))))))))
-    (property
-      (identifier)
-      (value
-        (or_expression
-          (and_expression
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (percentage
-                          (number)
-                          (percent_sign)))))
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (number)))))))))))
-    (property
-      (identifier)
-      (value
-        (or_expression
-          (and_expression
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (parenthesized_expression
-                          (value
-                            (or_expression
-                              (and_expression
-                                (equality_expression
-                                  (comparison_expression
-                                    (sum_expression
-                                      (term_expression
-                                        (unary_expression
-                                          (primary
-                                            (reference
-                                              (identifier)
-                                              (identifier)))))
-                                      (term_expression
-                                        (unary_expression
-                                          (primary
-                                            (number)))))))))))))
-                    (unary_expression
-                      (primary
-                        (number)))))))))))))
-
-==================
-References and conditionals
-==================
-
-TopAppBar {
-	trailingIcon: app.dark ? "light_mode" : "dark_mode"
-	width: window.width >= 640 ? 320 : 240
-}
-
----
-
-(source_file
-  (element
-    (element_name)
-    (property
-      (identifier)
-      (value
-        (or_expression
-          (and_expression
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (reference
-                          (identifier)
-                          (identifier))))))))))
-        (conditional_question)
-        (value
-          (or_expression
-            (and_expression
-              (equality_expression
-                (comparison_expression
-                  (sum_expression
-                    (term_expression
-                      (unary_expression
-                        (primary
-                          (string))))))))))
-        (conditional_colon)
-        (value
-          (or_expression
-            (and_expression
-              (equality_expression
-                (comparison_expression
-                  (sum_expression
-                    (term_expression
-                      (unary_expression
-                        (primary
-                          (string))))))))))))
-    (property
-      (identifier)
-      (value
-        (or_expression
-          (and_expression
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (reference
-                          (identifier)
-                          (identifier))))))
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (number)))))))))
-        (conditional_question)
-        (value
-          (or_expression
-            (and_expression
-              (equality_expression
-                (comparison_expression
-                  (sum_expression
-                    (term_expression
-                      (unary_expression
-                        (primary
-                          (number))))))))))
-        (conditional_colon)
-        (value
-          (or_expression
-            (and_expression
-              (equality_expression
-                (comparison_expression
-                  (sum_expression
-                    (term_expression
-                      (unary_expression
-                        (primary
-                          (number))))))))))))))
-
-==================
-Boolean operators
-==================
-
-Rectangle {
-	visible: app.dark && !window.width < 640 || true
-}
-
----
-
-(source_file
-  (element
-    (element_name)
-    (property
-      (identifier)
-      (value
-        (or_expression
-          (and_expression
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (reference
-                          (identifier)
-                          (identifier))))))))
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (unary_expression
-                        (primary
-                          (reference
-                            (identifier)
-                            (identifier)))))))
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (number))))))))
-          (and_expression
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (boolean)))))))))))))
-
-==================
-Import and props
-==================
-
-import "./Sidebar.goi" as Sidebar
-
-props {
-	title: string = "Mail"
-	width: number
-}
-
-Column {
-	Text { text: props.title }
-}
-
----
-
-(source_file
-  (import_statement
-    path: (string)
-    alias: (identifier))
-  (props_block
-    (prop_field
-      name: (identifier)
-      type: (data_type
-        element: (identifier))
-      default: (value
-        condition: (or_expression
-          (and_expression
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (string)))))))))))
-    (prop_field
-      name: (identifier)
-      type: (data_type
-        element: (identifier))))
   root: (element
     name: (element_name)
     (element
@@ -504,9 +66,404 @@ Column {
                     (term_expression
                       (unary_expression
                         (primary
-                          (reference
-                            object: (identifier)
-                            member: (identifier)))))))))))))))
+                          (number)))))))))))
+      (element
+        name: (element_name)
+        (property
+          name: (identifier)
+          value: (value
+            condition: (or_expression
+              (and_expression
+                (equality_expression
+                  (comparison_expression
+                    (sum_expression
+                      (term_expression
+                        (unary_expression
+                          (primary
+                            (number)))))))))))
+        (element
+          name: (element_name)
+          (property
+            name: (identifier)
+            value: (value
+              condition: (or_expression
+                (and_expression
+                  (equality_expression
+                    (comparison_expression
+                      (sum_expression
+                        (term_expression
+                          (unary_expression
+                            (primary
+                              (string))))))))))))))))
+
+==================
+Numbers, colours, booleans
+==================
+
+Window {
+	Rectangle {
+		width: 320
+		height: 50%
+		background: #6750a4
+		visible: true
+	}
+}
+
+---
+
+(source_file
+  root: (element
+    name: (element_name)
+    (element
+      name: (element_name)
+      (property
+        name: (identifier)
+        value: (value
+          condition: (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (number)))))))))))
+      (property
+        name: (identifier)
+        value: (value
+          condition: (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (percentage
+                            (number)
+                            (percent_sign))))))))))))
+      (property
+        name: (identifier)
+        value: (value
+          condition: (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (color)))))))))))
+      (property
+        name: (identifier)
+        value: (value
+          condition: (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (boolean))))))))))))))
+
+==================
+Responsive map
+==================
+
+Column {
+	padding: { base: 8, md: 16, lg: 24 }
+}
+
+---
+
+(source_file
+  root: (element
+    name: (element_name)
+    (property
+      name: (identifier)
+      value: (value
+        condition: (or_expression
+          (and_expression
+            (equality_expression
+              (comparison_expression
+                (sum_expression
+                  (term_expression
+                    (unary_expression
+                      (primary
+                        (map
+                          (map_entry
+                            name: (identifier)
+                            value: (value
+                              condition: (or_expression
+                                (and_expression
+                                  (equality_expression
+                                    (comparison_expression
+                                      (sum_expression
+                                        (term_expression
+                                          (unary_expression
+                                            (primary
+                                              (number)))))))))))
+                          (map_entry
+                            name: (identifier)
+                            value: (value
+                              condition: (or_expression
+                                (and_expression
+                                  (equality_expression
+                                    (comparison_expression
+                                      (sum_expression
+                                        (term_expression
+                                          (unary_expression
+                                            (primary
+                                              (number)))))))))))
+                          (map_entry
+                            name: (identifier)
+                            value: (value
+                              condition: (or_expression
+                                (and_expression
+                                  (equality_expression
+                                    (comparison_expression
+                                      (sum_expression
+                                        (term_expression
+                                          (unary_expression
+                                            (primary
+                                              (number))))))))))))))))))))))))
+
+==================
+References and conditionals
+==================
+
+Column {
+	width: side.width / 2
+	background: app.dark ? surface : surfaceContainer
+	visible: app.os == "linux" && window.width > 600
+}
+
+---
+
+(source_file
+  root: (element
+    name: (element_name)
+    (property
+      name: (identifier)
+      value: (value
+        condition: (or_expression
+          (and_expression
+            (equality_expression
+              (comparison_expression
+                (sum_expression
+                  (term_expression
+                    (unary_expression
+                      (primary
+                        (reference
+                          object: (identifier)
+                          member: (identifier))))
+                    (unary_expression
+                      (primary
+                        (number)))))))))))
+    (property
+      name: (identifier)
+      value: (value
+        condition: (or_expression
+          (and_expression
+            (equality_expression
+              (comparison_expression
+                (sum_expression
+                  (term_expression
+                    (unary_expression
+                      (primary
+                        (reference
+                          object: (identifier)
+                          member: (identifier))))))))))
+        (conditional_question)
+        then: (value
+          condition: (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (identifier))))))))))
+        (conditional_colon)
+        else: (value
+          condition: (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (identifier))))))))))))
+    (property
+      name: (identifier)
+      value: (value
+        condition: (or_expression
+          (and_expression
+            (equality_expression
+              (comparison_expression
+                (sum_expression
+                  (term_expression
+                    (unary_expression
+                      (primary
+                        (reference
+                          object: (identifier)
+                          member: (identifier)))))))
+              (comparison_expression
+                (sum_expression
+                  (term_expression
+                    (unary_expression
+                      (primary
+                        (string)))))))
+            (equality_expression
+              (comparison_expression
+                (sum_expression
+                  (term_expression
+                    (unary_expression
+                      (primary
+                        (reference
+                          object: (identifier)
+                          member: (identifier))))))
+                (sum_expression
+                  (term_expression
+                    (unary_expression
+                      (primary
+                        (number)))))))))))))
+
+==================
+Import and props
+==================
+
+import "./Sidebar.goi" as Sidebar
+
+props {
+	Title  string
+	Count  int
+	Rows   []ticket
+	OnOpen func(id string)
+}
+
+type ticket {
+	Title string
+	Count int
+}
+
+Column {
+	Text { text: formatf("%s: %d", props.Title, props.Count) }
+	Sidebar { Title: "Mail" }
+}
+
+---
+
+(source_file
+  (import_statement
+    path: (string)
+    alias: (identifier))
+  (props_block
+    (declaration
+      name: (identifier)
+      type: (type
+        (type_name
+          (identifier))))
+    (declaration
+      name: (identifier)
+      type: (type
+        (type_name
+          (identifier))))
+    (declaration
+      name: (identifier)
+      type: (type
+        (slice_type
+          (type
+            (type_name
+              (identifier))))))
+    (declaration
+      name: (identifier)
+      type: (type
+        (func_type
+          (func_parameter
+            name: (identifier)
+            type: (type
+              (type_name
+                (identifier))))))))
+  (data_shape
+    name: (identifier)
+    (declaration
+      name: (identifier)
+      type: (type
+        (type_name
+          (identifier))))
+    (declaration
+      name: (identifier)
+      type: (type
+        (type_name
+          (identifier)))))
+  root: (element
+    name: (element_name)
+    (element
+      name: (element_name)
+      (property
+        name: (identifier)
+        value: (value
+          condition: (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (formatf_call
+                            (value
+                              condition: (or_expression
+                                (and_expression
+                                  (equality_expression
+                                    (comparison_expression
+                                      (sum_expression
+                                        (term_expression
+                                          (unary_expression
+                                            (primary
+                                              (string))))))))))
+                            (value
+                              condition: (or_expression
+                                (and_expression
+                                  (equality_expression
+                                    (comparison_expression
+                                      (sum_expression
+                                        (term_expression
+                                          (unary_expression
+                                            (primary
+                                              (reference
+                                                object: (identifier)
+                                                member: (identifier)))))))))))
+                            (value
+                              condition: (or_expression
+                                (and_expression
+                                  (equality_expression
+                                    (comparison_expression
+                                      (sum_expression
+                                        (term_expression
+                                          (unary_expression
+                                            (primary
+                                              (reference
+                                                object: (identifier)
+                                                member: (identifier)))))))))))))))))))))))
+    (element
+      name: (element_name)
+      (property
+        name: (identifier)
+        value: (value
+          condition: (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (string))))))))))))))
 
 ==================
 Semicolons and comments
@@ -519,13 +476,13 @@ Window { /* inline */ id: main; }
 
 (source_file
   (comment)
-  (element
-    (element_name)
+  root: (element
+    name: (element_name)
     (comment)
     (property
-      (identifier)
-      (value
-        (or_expression
+      name: (identifier)
+      value: (value
+        condition: (or_expression
           (and_expression
             (equality_expression
               (comparison_expression
@@ -534,34 +491,3 @@ Window { /* inline */ id: main; }
                     (unary_expression
                       (primary
                         (identifier)))))))))))))
-
-==================
-Escapes in strings
-==================
-
-Text {
-	text: "say \"hi\"\n\ttab \u00e9"
-}
-
----
-
-(source_file
-  (element
-    (element_name)
-    (property
-      (identifier)
-      (value
-        (or_expression
-          (and_expression
-            (equality_expression
-              (comparison_expression
-                (sum_expression
-                  (term_expression
-                    (unary_expression
-                      (primary
-                        (string
-                          (escape_sequence)
-                          (escape_sequence)
-                          (escape_sequence)
-                          (escape_sequence)
-                          (escape_sequence))))))))))))))

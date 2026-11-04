@@ -24,42 +24,56 @@ module.exports = grammar({
       field('root', $.element),
     ),
 
-    // bridge { loading: bool, tickets: [ticket], onOpen: func(id: string) }
+    // bridge { Loading bool, Tickets []ticket, OnOpen func(id string) }
     // `data { ... }` is the original spelling and parses alike.
     bridge_block: $ => seq(
       choice('bridge', 'data'),
       '{',
-      repeat(seq($.data_field, optional(','))),
+      repeat($._decl),
       '}',
     ),
 
-    // type ticket { title: string }
+    // type ticket { Title string }
     // `data ticket { ... }` is the original spelling.
     data_shape: $ => seq(
       choice('type', 'data'),
       field('name', $.identifier),
       '{',
-      repeat(seq($.data_field, optional(','))),
+      repeat($._decl),
       '}',
     ),
 
-    data_field: $ => seq(
+    // props { Title string, Rows []ticket }
+    props_block: $ => seq(
+      'props',
+      '{',
+      repeat($._decl),
+      '}',
+    ),
+
+    _decl: $ => $.declaration,
+
+    // Name Type — Go's field syntax, no colon.
+    declaration: $ => seq(
       field('name', $.identifier),
-      ':',
-      field('type', $.data_type),
-      // `count: number = 0` is the value before Go sets one.
-      optional(seq('=', field('default', $.value))),
-      optional(';'),
+      field('type', $.type),
+      optional(choice(',', ';')),
     ),
 
-    // bool, string, number, color, [ticket], ticket[], func(id: string)
-    data_type: $ => choice(
+    type: $ => choice(
       $.func_type,
-      seq(field('element', $.identifier), optional(seq('[', ']'))),
-      seq('[', field('element', $.identifier), ']'),
+      $.slice_type,
+      $.map_type,
+      $.type_name,
     ),
 
-    // func(id: string, count: number)
+    type_name: $ => $.identifier,
+
+    slice_type: $ => seq('[', ']', $.type),
+
+    map_type: $ => seq('map', '[', field('key', $.type_name), ']', $.type),
+
+    // func(id string, count uint)
     func_type: $ => seq(
       'func',
       '(',
@@ -73,8 +87,7 @@ module.exports = grammar({
 
     func_parameter: $ => seq(
       field('name', $.identifier),
-      ':',
-      field('type', $.identifier),
+      field('type', $.type),
     ),
 
     // import "./Sidebar.goi" as Sidebar
@@ -86,25 +99,18 @@ module.exports = grammar({
       optional(';'),
     ),
 
-    // props { title: string = "untitled", count: number }
-    // The typed values a fragment expects; the body reads props.name.
-    props_block: $ => seq(
-      'props',
-      '{',
-      repeat(seq($.prop_field, optional(','))),
-      '}',
-    ),
-
-    prop_field: $ => seq(
-      field('name', $.identifier),
-      ':',
-      field('type', $.data_type),
-      optional(seq('=', field('default', $.value))),
+    // import "./Sidebar.goi" as Sidebar
+    import_statement: $ => seq(
+      'import',
+      field('path', $.string),
+      'as',
+      field('alias', $.identifier),
+      optional(';'),
     ),
 
     // Column { ... }
     element: $ => seq(
-      field('name', $.element_name),
+      field('name', alias($.identifier, $.element_name)),
       '{',
       repeat($._member),
       '}',
@@ -114,46 +120,33 @@ module.exports = grammar({
       $.property,
       $.element,
       $.if_block,
-      $.each_block,
+      $.for_block,
       $.slot,
     ),
 
-    // {#if cond} … {:else if cond} … {:else} … {/if}
+    // if cond { … } else if cond { … } else { … }
     if_block: $ => seq(
-      '{#if',
+      'if',
       field('condition', $.value),
-      '}',
-      repeat($._member),
-      repeat(seq(
-        '{:else',
-        'if',
-        field('condition', $.value),
-        '}',
-        repeat($._member),
-      )),
-      optional(seq(
-        '{:else',
-        '}',
-        repeat($._member),
-      )),
-      '{/if}',
+      field('body', $.block_body),
+      repeat(seq('else', 'if', field('condition', $.value), field('body', $.block_body))),
+      optional(seq('else', field('body', $.block_body))),
     ),
 
-    // {#each data.rows as row} … {:else} … {/each}
-    each_block: $ => seq(
-      '{#each',
-      field('list', $.reference),
-      'as',
-      field('item', $.identifier),
-      '}',
-      repeat($._member),
+    // for i, row := range bridge.rows { … }
+    for_block: $ => seq(
+      'for',
       optional(seq(
-        '{:else',
-        '}',
-        repeat($._member),
+        field('key', $.identifier),
+        optional(seq(',', field('value', $.identifier))),
+        ':=',
       )),
-      '{/each}',
+      'range',
+      field('range', $.value),
+      field('body', $.block_body),
     ),
+
+    block_body: $ => seq('{', repeat($._member), '}'),
 
     // $children — where an instance's children go. A named slot such as
     // `$actions { ... }` is the same marker with a body.
@@ -170,8 +163,6 @@ module.exports = grammar({
       field('value', $.value),
       optional(';'),
     ),
-
-    element_name: _ => /[A-Z][A-Za-z0-9_]*/,
 
     // Values are one expression grammar, so `text: hello` and
     // `width: side.width / 2` are both plain values.
@@ -224,7 +215,7 @@ module.exports = grammar({
 
     primary: $ => choice(
       $.string,
-      $.template_string,
+      $.formatf_call,
       $.percentage,
       $.number,
       $.boolean,
@@ -240,6 +231,18 @@ module.exports = grammar({
 
     // 50%
     percentage: $ => seq($.number, alias('%', $.percent_sign)),
+
+    // formatf("%d items", bridge.Count) — Go's fmt verbs in a string value.
+    formatf_call: $ => seq(
+      'formatf',
+      '(',
+      optional(seq(
+        $.value,
+        repeat(seq(',', $.value)),
+        optional(','),
+      )),
+      ')',
+    ),
 
     // bridge.onOpen(post.id), the value of an event property.
     handler_call: $ => seq(
@@ -276,22 +279,6 @@ module.exports = grammar({
       ':',
       field('value', $.value),
     ),
-
-    // `Count is ${bridge.count}` — a string with interpolated values.
-    template_string: $ => seq(
-      '`',
-      repeat(choice(
-        $.template_interpolation,
-        $._template_text,
-        $.escape_sequence,
-      )),
-      '`',
-    ),
-
-    template_interpolation: $ => seq('${', field('value', $.value), '}'),
-
-    // Text between the holes. A bare `$` stays text, so only `${` starts one.
-    _template_text: _ => token.immediate(prec(-1, /[^`\\$]+|\$/)),
 
     string: $ => seq(
       '"',

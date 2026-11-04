@@ -18,12 +18,12 @@ language server for `.goi` design files.
 
 Element names read as types, property names as fields, and value identifiers
 (`filled`, `primary`, `dark_mode`) as constants, because those are names the
-framework resolves rather than variables. A `bridge` block reads as a contract:
-its handlers as functions, their parameters as parameters, and an event property
-(`onClick: bridge.onOpen(row.id)`) as a handler call. Row shapes declared with
-`type` read as types too, and a fragment's `props { title: string = "Mail" }`
-block reads as its inputs: the names as fields, their types as types. A backtick
-value is a string whose `${...}` holes highlight as code.
+framework resolves rather than variables. A `bridge` block reads as Go fields:
+`OnOpen func(id string)` as a function, `Count int` as a field with a type, and
+an event property (`onClick: bridge.OnOpen(row.ID)`) as a handler call. Row
+types declared with `type` read as types too, and a fragment's
+`props { Title string }` block reads as its inputs. `if`, `else`, `for` and
+`range` are keywords, and `formatf` is a builtin.
 
 The language server is the same parser and schema the runtime uses, so a design
 that draws also type-checks: diagnostics land on the property they blame, even
@@ -31,13 +31,13 @@ when it lives in an imported fragment. Completion knows the element you are
 inside, the values a property accepts, the theme's colour roles and the `id`s the
 file declares. An `icon`/`trailingIcon`/`iconOn`/`iconOff` value completes to the
 names the embedded Material Symbols font actually has, read out of the woff, so
-the list cannot drift from what draws. `bridge.` completes the handlers the
-design declares, a fragment's `props.` completes its declared inputs (scalars,
-lists and handler props), and an event property offers the handler calls it can
-use.
-Typing an expression offers the file's ids; after `panel.` the element's
-properties complete, hover explains either half, and `Ctrl`-click on an `import`
-path, its alias or an id jumps to its declaration.
+the list cannot drift from what draws. `bridge.` and `props.` complete the
+declarations the file makes with their Go type, a declaration's type position
+completes Go's primitives and the declared types, an event property offers the
+handler calls it can use, and a string position offers `formatf`. Typing an
+expression offers the file's ids; after `panel.` the element's properties
+complete. Hover explains a declaration, a shape field and a loop variable, and
+`Ctrl`-click on an `import` path, its alias or an id jumps to its declaration.
 
 ## Language server
 

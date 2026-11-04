@@ -15,6 +15,37 @@
     }
   },
   {
+    "type": "block_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "element",
+          "named": true
+        },
+        {
+          "type": "for_block",
+          "named": true
+        },
+        {
+          "type": "if_block",
+          "named": true
+        },
+        {
+          "type": "property",
+          "named": true
+        },
+        {
+          "type": "slot",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "boolean",
     "named": true,
     "fields": {}
@@ -28,7 +59,7 @@
       "required": false,
       "types": [
         {
-          "type": "data_field",
+          "type": "declaration",
           "named": true
         }
       ]
@@ -47,42 +78,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "data_field",
-    "named": true,
-    "fields": {
-      "default": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "value",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_type",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -105,43 +100,17 @@
       "required": false,
       "types": [
         {
-          "type": "data_field",
+          "type": "declaration",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "data_type",
+    "type": "declaration",
     "named": true,
     "fields": {
-      "element": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "func_type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "each_block",
-    "named": true,
-    "fields": {
-      "item": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
@@ -151,42 +120,16 @@
           }
         ]
       },
-      "list": {
+      "type": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "reference",
+            "type": "type",
             "named": true
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "each_block",
-          "named": true
-        },
-        {
-          "type": "element",
-          "named": true
-        },
-        {
-          "type": "if_block",
-          "named": true
-        },
-        {
-          "type": "property",
-          "named": true
-        },
-        {
-          "type": "slot",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -209,11 +152,11 @@
       "required": false,
       "types": [
         {
-          "type": "each_block",
+          "type": "element",
           "named": true
         },
         {
-          "type": "element",
+          "type": "for_block",
           "named": true
         },
         {
@@ -247,6 +190,67 @@
     }
   },
   {
+    "type": "for_block",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block_body",
+            "named": true
+          }
+        ]
+      },
+      "key": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "range": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "formatf_call",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "func_parameter",
     "named": true,
     "fields": {
@@ -265,7 +269,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "type",
             "named": true
           }
         ]
@@ -317,6 +321,16 @@
     "type": "if_block",
     "named": true,
     "fields": {
+      "body": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "block_body",
+            "named": true
+          }
+        ]
+      },
       "condition": {
         "multiple": true,
         "required": true,
@@ -327,32 +341,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "each_block",
-          "named": true
-        },
-        {
-          "type": "element",
-          "named": true
-        },
-        {
-          "type": "if_block",
-          "named": true
-        },
-        {
-          "type": "property",
-          "named": true
-        },
-        {
-          "type": "slot",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -423,6 +411,32 @@
     }
   },
   {
+    "type": "map_type",
+    "named": true,
+    "fields": {
+      "key": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_name",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "or_expression",
     "named": true,
     "fields": {},
@@ -488,6 +502,10 @@
           "named": true
         },
         {
+          "type": "formatf_call",
+          "named": true
+        },
+        {
           "type": "handler_call",
           "named": true
         },
@@ -518,48 +536,8 @@
         {
           "type": "string",
           "named": true
-        },
-        {
-          "type": "template_string",
-          "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "prop_field",
-    "named": true,
-    "fields": {
-      "default": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "value",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "data_type",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -597,7 +575,7 @@
       "required": false,
       "types": [
         {
-          "type": "prop_field",
+          "type": "declaration",
           "named": true
         }
       ]
@@ -630,6 +608,21 @@
     }
   },
   {
+    "type": "slice_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "slot",
     "named": true,
     "fields": {
@@ -649,11 +642,11 @@
       "required": false,
       "types": [
         {
-          "type": "each_block",
+          "type": "element",
           "named": true
         },
         {
-          "type": "element",
+          "type": "for_block",
           "named": true
         },
         {
@@ -741,41 +734,6 @@
     }
   },
   {
-    "type": "template_interpolation",
-    "named": true,
-    "fields": {
-      "value": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "value",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "template_string",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "escape_sequence",
-          "named": true
-        },
-        {
-          "type": "template_interpolation",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "term_expression",
     "named": true,
     "fields": {},
@@ -785,6 +743,48 @@
       "types": [
         {
           "type": "unary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "func_type",
+          "named": true
+        },
+        {
+          "type": "map_type",
+          "named": true
+        },
+        {
+          "type": "slice_type",
+          "named": true
+        },
+        {
+          "type": "type_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -876,10 +876,6 @@
     "named": false
   },
   {
-    "type": "${",
-    "named": false
-  },
-  {
     "type": "&&",
     "named": false
   },
@@ -920,6 +916,10 @@
     "named": false
   },
   {
+    "type": ":=",
+    "named": false
+  },
+  {
     "type": ";",
     "named": false
   },
@@ -929,10 +929,6 @@
   },
   {
     "type": "<=",
-    "named": false
-  },
-  {
-    "type": "=",
     "named": false
   },
   {
@@ -953,10 +949,6 @@
   },
   {
     "type": "]",
-    "named": false
-  },
-  {
-    "type": "`",
     "named": false
   },
   {
@@ -993,11 +985,23 @@
     "named": true
   },
   {
+    "type": "else",
+    "named": false
+  },
+  {
     "type": "escape_sequence",
     "named": true
   },
   {
     "type": "false",
+    "named": false
+  },
+  {
+    "type": "for",
+    "named": false
+  },
+  {
+    "type": "formatf",
     "named": false
   },
   {
@@ -1017,6 +1021,10 @@
     "named": false
   },
   {
+    "type": "map",
+    "named": false
+  },
+  {
     "type": "number",
     "named": true
   },
@@ -1029,6 +1037,10 @@
     "named": false
   },
   {
+    "type": "range",
+    "named": false
+  },
+  {
     "type": "true",
     "named": false
   },
@@ -1038,26 +1050,6 @@
   },
   {
     "type": "{",
-    "named": false
-  },
-  {
-    "type": "{#each",
-    "named": false
-  },
-  {
-    "type": "{#if",
-    "named": false
-  },
-  {
-    "type": "{/each}",
-    "named": false
-  },
-  {
-    "type": "{/if}",
-    "named": false
-  },
-  {
-    "type": "{:else",
     "named": false
   },
   {

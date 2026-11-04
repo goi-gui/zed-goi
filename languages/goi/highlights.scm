@@ -13,47 +13,29 @@
 (number) @number
 (boolean) @boolean
 
-["import" "as" "props" "bridge" "data" "type" "func"] @keyword
-
-;; Block tags: {#if}, {:else}, {/if}, {#each}, {/each}. They read as control
-;; flow, so they take the keyword colour rather than the punctuation one.
-[
-  "{#if"
-  "{:else"
-  "{/if}"
-  "{#each"
-  "{/each}"
-  "if"
-  "as"
-] @keyword
+["import" "as" "props" "bridge" "data" "type" "func" "if" "else" "for" "range"] @keyword
 
 ;; $children is a slot, not a value; $actions { ... } fills a named one.
 (slot
   "$" @punctuation.special
   name: (identifier) @keyword)
 
-;; The row variable of {#each data.rows as row}.
-(each_block
-  item: (identifier) @variable)
+;; The loop variables of `for i, row := range bridge.rows`.
+(for_block
+  key: (identifier) @variable)
+
+(for_block
+  value: (identifier) @variable)
 
 ;; A declared data variable reads as a field; its type as a type.
-(data_field
-  name: (identifier) @property
-  type: (data_type
-    element: (identifier) @type))
-
 (data_shape
   name: (identifier) @type)
 
 ;; A handler declaration reads as a function, its parameters as parameters.
-(data_field
-  name: (identifier) @function
-  type: (data_type
-    (func_type)))
-
 (func_parameter
-  name: (identifier) @variable.parameter
-  type: (identifier) @type)
+  name: (identifier) @variable.parameter)
+
+(type_name) @type
 
 (conditional_question) @operator
 (conditional_colon) @operator
@@ -65,35 +47,24 @@
 (property
   name: (identifier) @property)
 
+;; A declaration's name is a field; its type reads as a type. A handler
+;; declaration (`OnOpen func(id string)`) reads as a function instead.
+(declaration
+  name: (identifier) @property)
+
 ;; Event properties (`onClick`, `onChange`) call Go handlers.
 ((property
   name: (identifier) @function.method)
   (#match? @function.method "^on[A-Z]"))
 
-;; `Count is ${bridge.count}`: a template is a string, its holes are code.
-(template_string) @string
-
-(template_interpolation
-  "${" @punctuation.special
-  "}" @punctuation.special)
-
 (map_entry
   name: (identifier) @attribute)
 
-;; A fragment's input block: the prop names are fields, their types are types.
-(props_block
-  "props" @keyword)
+;; Declarations read as Go fields: the name is a field, the type is a type.
+(declaration
+  name: (identifier) @property)
 
-(prop_field
-  name: (identifier) @property
-  type: (data_type
-    element: (identifier) @type))
-
-;; A handler prop reads as a function, like a bridge handler.
-(prop_field
-  name: (identifier) @function
-  type: (data_type
-    (func_type)))
+(map_type "map" @type)
 
 ;; props.title reads a declared input.
 (reference
