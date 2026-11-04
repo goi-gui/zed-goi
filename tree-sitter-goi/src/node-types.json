@@ -53,6 +53,16 @@
     "type": "data_field",
     "named": true,
     "fields": {
+      "default": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -508,6 +518,10 @@
         {
           "type": "string",
           "named": true
+        },
+        {
+          "type": "template_string",
+          "named": true
         }
       ]
     }
@@ -541,7 +555,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "data_type",
             "named": true
           }
         ]
@@ -727,6 +741,41 @@
     }
   },
   {
+    "type": "template_interpolation",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "template_string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        },
+        {
+          "type": "template_interpolation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "term_expression",
     "named": true,
     "fields": {},
@@ -827,6 +876,10 @@
     "named": false
   },
   {
+    "type": "${",
+    "named": false
+  },
+  {
     "type": "&&",
     "named": false
   },
@@ -900,6 +953,10 @@
   },
   {
     "type": "]",
+    "named": false
+  },
+  {
+    "type": "`",
     "named": false
   },
   {

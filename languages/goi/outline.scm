@@ -19,7 +19,7 @@
 (data_shape
   name: (identifier) @name) @item
 
-;; A fragment's declared inputs.
+;; A fragment's declared inputs and the app values a design reads.
 (props_block
   "props" @name
   (prop_field name: (identifier) @name) @item) @item

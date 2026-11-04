@@ -473,7 +473,8 @@ Column {
   (props_block
     (prop_field
       name: (identifier)
-      type: (identifier)
+      type: (data_type
+        element: (identifier))
       default: (value
         condition: (or_expression
           (and_expression
@@ -486,7 +487,8 @@ Column {
                         (string)))))))))))
     (prop_field
       name: (identifier)
-      type: (identifier)))
+      type: (data_type
+        element: (identifier))))
   root: (element
     name: (element_name)
     (element

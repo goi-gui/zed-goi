@@ -70,6 +70,13 @@
   name: (identifier) @function.method)
   (#match? @function.method "^on[A-Z]"))
 
+;; `Count is ${bridge.count}`: a template is a string, its holes are code.
+(template_string) @string
+
+(template_interpolation
+  "${" @punctuation.special
+  "}" @punctuation.special)
+
 (map_entry
   name: (identifier) @attribute)
 
@@ -79,7 +86,14 @@
 
 (prop_field
   name: (identifier) @property
-  type: (identifier) @type)
+  type: (data_type
+    element: (identifier) @type))
+
+;; A handler prop reads as a function, like a bridge handler.
+(prop_field
+  name: (identifier) @function
+  type: (data_type
+    (func_type)))
 
 ;; props.title reads a declared input.
 (reference

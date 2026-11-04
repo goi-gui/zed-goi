@@ -188,3 +188,171 @@ Window {
                                               (unary_expression
                                                 (primary
                                                   (number))))))))))))))))))))))))))
+
+==================
+Props lists, handlers and a template
+==================
+
+props {
+	rows: [ticket]
+	onOpen: func(id: string)
+	title: string = "hi"
+}
+
+type ticket { title: string }
+
+bridge {
+	count: number = 0
+}
+
+Window {
+	Column {
+		Text { text: `Count is ${bridge.count} and ${props.title}` }
+		{#each props.rows as row}
+			Button { label: row.title onClick: props.onOpen(row.title) }
+		{/each}
+	}
+}
+
+---
+
+(source_file
+  (props_block
+    (prop_field
+      name: (identifier)
+      type: (data_type
+        element: (identifier)))
+    (prop_field
+      name: (identifier)
+      type: (data_type
+        (func_type
+          (func_parameter
+            name: (identifier)
+            type: (identifier)))))
+    (prop_field
+      name: (identifier)
+      type: (data_type
+        element: (identifier))
+      default: (value
+        condition: (or_expression
+          (and_expression
+            (equality_expression
+              (comparison_expression
+                (sum_expression
+                  (term_expression
+                    (unary_expression
+                      (primary
+                        (string))))))))))))
+  (data_shape
+    name: (identifier)
+    (data_field
+      name: (identifier)
+      type: (data_type
+        element: (identifier))))
+  (bridge_block
+    (data_field
+      name: (identifier)
+      type: (data_type
+        element: (identifier))
+      default: (value
+        condition: (or_expression
+          (and_expression
+            (equality_expression
+              (comparison_expression
+                (sum_expression
+                  (term_expression
+                    (unary_expression
+                      (primary
+                        (number))))))))))))
+  root: (element
+    name: (element_name)
+    (element
+      name: (element_name)
+      (element
+        name: (element_name)
+        (property
+          name: (identifier)
+          value: (value
+            condition: (or_expression
+              (and_expression
+                (equality_expression
+                  (comparison_expression
+                    (sum_expression
+                      (term_expression
+                        (unary_expression
+                          (primary
+                            (template_string
+                              (template_interpolation
+                                value: (value
+                                  condition: (or_expression
+                                    (and_expression
+                                      (equality_expression
+                                        (comparison_expression
+                                          (sum_expression
+                                            (term_expression
+                                              (unary_expression
+                                                (primary
+                                                  (reference
+                                                    object: (identifier)
+                                                    member: (identifier))))))))))))
+                              (template_interpolation
+                                value: (value
+                                  condition: (or_expression
+                                    (and_expression
+                                      (equality_expression
+                                        (comparison_expression
+                                          (sum_expression
+                                            (term_expression
+                                              (unary_expression
+                                                (primary
+                                                  (reference
+                                                    object: (identifier)
+                                                    member: (identifier))))))))))))))))))))))))
+      (each_block
+        list: (reference
+          object: (identifier)
+          member: (identifier))
+        item: (identifier)
+        (element
+          name: (element_name)
+          (property
+            name: (identifier)
+            value: (value
+              condition: (or_expression
+                (and_expression
+                  (equality_expression
+                    (comparison_expression
+                      (sum_expression
+                        (term_expression
+                          (unary_expression
+                            (primary
+                              (reference
+                                object: (identifier)
+                                member: (identifier))))))))))))
+          (property
+            name: (identifier)
+            value: (value
+              condition: (or_expression
+                (and_expression
+                  (equality_expression
+                    (comparison_expression
+                      (sum_expression
+                        (term_expression
+                          (unary_expression
+                            (primary
+                              (handler_call
+                                function: (reference
+                                  object: (identifier)
+                                  member: (identifier))
+                                (value
+                                  condition: (or_expression
+                                    (and_expression
+                                      (equality_expression
+                                        (comparison_expression
+                                          (sum_expression
+                                            (term_expression
+                                              (unary_expression
+                                                (primary
+                                                  (reference
+                                                    object: (identifier)
+                                                    member: (identifier)))))))))))))))))))))))))))

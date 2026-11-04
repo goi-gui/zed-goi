@@ -47,6 +47,8 @@ module.exports = grammar({
       field('name', $.identifier),
       ':',
       field('type', $.data_type),
+      // `count: number = 0` is the value before Go sets one.
+      optional(seq('=', field('default', $.value))),
       optional(';'),
     ),
 
@@ -96,7 +98,7 @@ module.exports = grammar({
     prop_field: $ => seq(
       field('name', $.identifier),
       ':',
-      field('type', $.identifier),
+      field('type', $.data_type),
       optional(seq('=', field('default', $.value))),
     ),
 
@@ -222,6 +224,7 @@ module.exports = grammar({
 
     primary: $ => choice(
       $.string,
+      $.template_string,
       $.percentage,
       $.number,
       $.boolean,
@@ -273,6 +276,22 @@ module.exports = grammar({
       ':',
       field('value', $.value),
     ),
+
+    // `Count is ${bridge.count}` — a string with interpolated values.
+    template_string: $ => seq(
+      '`',
+      repeat(choice(
+        $.template_interpolation,
+        $._template_text,
+        $.escape_sequence,
+      )),
+      '`',
+    ),
+
+    template_interpolation: $ => seq('${', field('value', $.value), '}'),
+
+    // Text between the holes. A bare `$` stays text, so only `${` starts one.
+    _template_text: _ => token.immediate(prec(-1, /[^`\\$]+|\$/)),
 
     string: $ => seq(
       '"',

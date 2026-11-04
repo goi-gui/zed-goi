@@ -22,7 +22,8 @@ framework resolves rather than variables. A `bridge` block reads as a contract:
 its handlers as functions, their parameters as parameters, and an event property
 (`onClick: bridge.onOpen(row.id)`) as a handler call. Row shapes declared with
 `type` read as types too, and a fragment's `props { title: string = "Mail" }`
-block reads as its inputs: the names as fields, their types as types.
+block reads as its inputs: the names as fields, their types as types. A backtick
+value is a string whose `${...}` holes highlight as code.
 
 The language server is the same parser and schema the runtime uses, so a design
 that draws also type-checks: diagnostics land on the property they blame, even
@@ -31,7 +32,9 @@ inside, the values a property accepts, the theme's colour roles and the `id`s th
 file declares. An `icon`/`trailingIcon`/`iconOn`/`iconOff` value completes to the
 names the embedded Material Symbols font actually has, read out of the woff, so
 the list cannot drift from what draws. `bridge.` completes the handlers the
-design declares, and an event property offers the handler calls it can use.
+design declares, a fragment's `props.` completes its declared inputs (scalars,
+lists and handler props), and an event property offers the handler calls it can
+use.
 Typing an expression offers the file's ids; after `panel.` the element's
 properties complete, hover explains either half, and `Ctrl`-click on an `import`
 path, its alias or an id jumps to its declaration.
