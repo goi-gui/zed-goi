@@ -20,7 +20,7 @@ Window {
 ---
 
 (source_file
-  (data_block
+  (bridge_block
     (data_field
       name: (identifier)
       type: (data_type
@@ -78,3 +78,113 @@ Window {
                         (unary_expression
                           (primary
                             (string)))))))))))))))
+
+==================
+Bridge handlers and a typed row
+==================
+
+bridge {
+	tickets: [ticket]
+	onOpen: func(id: string, count: number)
+}
+
+type ticket { id: string, title: string }
+
+Window {
+	Column {
+		{#each bridge.tickets as ticket}
+			Button { label: ticket.title onClick: bridge.onOpen(ticket.id, 2) }
+		{/each}
+	}
+}
+
+---
+
+(source_file
+  (bridge_block
+    (data_field
+      name: (identifier)
+      type: (data_type
+        element: (identifier)))
+    (data_field
+      name: (identifier)
+      type: (data_type
+        (func_type
+          (func_parameter
+            name: (identifier)
+            type: (identifier))
+          (func_parameter
+            name: (identifier)
+            type: (identifier))))))
+  (data_shape
+    name: (identifier)
+    (data_field
+      name: (identifier)
+      type: (data_type
+        element: (identifier)))
+    (data_field
+      name: (identifier)
+      type: (data_type
+        element: (identifier))))
+  root: (element
+    name: (element_name)
+    (element
+      name: (element_name)
+      (each_block
+        list: (reference
+          object: (identifier)
+          member: (identifier))
+        item: (identifier)
+        (element
+          name: (element_name)
+          (property
+            name: (identifier)
+            value: (value
+              condition: (or_expression
+                (and_expression
+                  (equality_expression
+                    (comparison_expression
+                      (sum_expression
+                        (term_expression
+                          (unary_expression
+                            (primary
+                              (reference
+                                object: (identifier)
+                                member: (identifier))))))))))))
+          (property
+            name: (identifier)
+            value: (value
+              condition: (or_expression
+                (and_expression
+                  (equality_expression
+                    (comparison_expression
+                      (sum_expression
+                        (term_expression
+                          (unary_expression
+                            (primary
+                              (handler_call
+                                function: (reference
+                                  object: (identifier)
+                                  member: (identifier))
+                                (value
+                                  condition: (or_expression
+                                    (and_expression
+                                      (equality_expression
+                                        (comparison_expression
+                                          (sum_expression
+                                            (term_expression
+                                              (unary_expression
+                                                (primary
+                                                  (reference
+                                                    object: (identifier)
+                                                    member: (identifier)))))))))))
+                                (value
+                                  condition: (or_expression
+                                    (and_expression
+                                      (equality_expression
+                                        (comparison_expression
+                                          (sum_expression
+                                            (term_expression
+                                              (unary_expression
+                                                (primary
+                                                  (number))))))))))))))))))))))))))

@@ -18,7 +18,10 @@ language server for `.goi` design files.
 
 Element names read as types, property names as fields, and value identifiers
 (`filled`, `primary`, `dark_mode`) as constants, because those are names the
-framework resolves rather than variables.
+framework resolves rather than variables. A `bridge` block reads as a contract:
+its handlers as functions, their parameters as parameters, and an event property
+(`onClick: bridge.onOpen(row.id)`) as a handler call. Row shapes declared with
+`type` read as types too.
 
 The language server is the same parser and schema the runtime uses, so a design
 that draws also type-checks: diagnostics land on the property they blame, even
@@ -26,8 +29,9 @@ when it lives in an imported fragment. Completion knows the element you are
 inside, the values a property accepts, the theme's colour roles and the `id`s the
 file declares. An `icon`/`trailingIcon`/`iconOn`/`iconOff` value completes to the
 names the embedded Material Symbols font actually has, read out of the woff, so
-the list cannot drift from what draws. `Ctrl`-click on an `import` path or its
-alias opens the fragment.
+the list cannot drift from what draws. `bridge.` completes the handlers the
+design declares, and an event property offers the handler calls it can use.
+`Ctrl`-click on an `import` path or its alias opens the fragment.
 
 ## Language server
 
@@ -90,9 +94,10 @@ The parser is checked in, so a fresh clone needs no Node. After editing
 
 ```sh
 cd tree-sitter-goi
-tree-sitter generate --abi 14   # 14, not 15: Zed's runtime accepts up to 14
-tree-sitter test                # corpus in test/corpus/
-tree-sitter parse <goi-repo>/examples/*/*.goi   # every design must parse with no ERROR
+npm install                     # provides the tree-sitter CLI
+npx tree-sitter generate --abi 14   # 14, not 15: Zed's runtime accepts up to 14
+npx tree-sitter test                # corpus in test/corpus/
+npx tree-sitter parse <goi-repo>/examples/*/*.goi   # every design must parse with no ERROR
 ```
 
 `--abi 14` matters: generating with the CLI default (15) makes Zed fail the

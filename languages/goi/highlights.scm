@@ -13,7 +13,7 @@
 (number) @number
 (boolean) @boolean
 
-["import" "as" "param" "data"] @keyword
+["import" "as" "param" "bridge" "data" "type" "func"] @keyword
 
 ;; Block tags: {#if}, {:else}, {/if}, {#each}, {/each}. They read as control
 ;; flow, so they take the keyword colour rather than the punctuation one.
@@ -27,10 +27,10 @@
   "as"
 ] @keyword
 
-;; $children is a slot, not a value.
-(children_slot
+;; $children is a slot, not a value; $actions { ... } fills a named one.
+(slot
   "$" @punctuation.special
-  (slot_name) @keyword)
+  name: (identifier) @keyword)
 
 ;; The row variable of {#each data.rows as row}.
 (each_block
@@ -45,6 +45,16 @@
 (data_shape
   name: (identifier) @type)
 
+;; A handler declaration reads as a function, its parameters as parameters.
+(data_field
+  name: (identifier) @function
+  type: (data_type
+    (func_type)))
+
+(func_parameter
+  name: (identifier) @variable.parameter
+  type: (identifier) @type)
+
 (conditional_question) @operator
 (conditional_colon) @operator
 (percent_sign) @operator
@@ -54,6 +64,11 @@
 
 (property
   name: (identifier) @property)
+
+;; Event properties (`onClick`, `onChange`) call Go handlers.
+((property
+  name: (identifier) @function.method)
+  (#match? @function.method "^on[A-Z]"))
 
 (map_entry
   name: (identifier) @attribute)
@@ -71,6 +86,12 @@
 (reference
   "." @punctuation.delimiter
   member: (identifier) @property)
+
+;; bridge.onOpen(post.id): the namespace and the handler it calls.
+(handler_call
+  function: (reference
+    object: (identifier) @namespace
+    member: (identifier) @function.method))
 
 ;; Enum and colour-role names: `filled`, `primary`, `dark_mode`.
 (primary

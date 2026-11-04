@@ -18,26 +18,28 @@ module.exports = grammar({
       repeat(choice(
         $.import_statement,
         $.param_declaration,
-        $.data_block,
+        $.bridge_block,
         $.data_shape,
       )),
       field('root', $.element),
     ),
 
-    // data { loading: bool, rows: ticket[] }
-    data_block: $ => seq(
-      'data',
+    // bridge { loading: bool, tickets: [ticket], onOpen: func(id: string) }
+    // `data { ... }` is the original spelling and parses alike.
+    bridge_block: $ => seq(
+      choice('bridge', 'data'),
       '{',
-      repeat($.data_field),
+      repeat(seq($.data_field, optional(','))),
       '}',
     ),
 
-    // data ticket { title: string }
+    // type ticket { title: string }
+    // `data ticket { ... }` is the original spelling.
     data_shape: $ => seq(
-      'data',
+      choice('type', 'data'),
       field('name', $.identifier),
       '{',
-      repeat($.data_field),
+      repeat(seq($.data_field, optional(','))),
       '}',
     ),
 
@@ -48,10 +50,29 @@ module.exports = grammar({
       optional(';'),
     ),
 
-    // bool, string, number, color, ticket[]
-    data_type: $ => seq(
-      field('element', $.identifier),
-      optional(seq('[', ']')),
+    // bool, string, number, color, [ticket], ticket[], func(id: string)
+    data_type: $ => choice(
+      $.func_type,
+      seq(field('element', $.identifier), optional(seq('[', ']'))),
+      seq('[', field('element', $.identifier), ']'),
+    ),
+
+    // func(id: string, count: number)
+    func_type: $ => seq(
+      'func',
+      '(',
+      optional(seq(
+        $.func_parameter,
+        repeat(seq(',', $.func_parameter)),
+        optional(','),
+      )),
+      ')',
+    ),
+
+    func_parameter: $ => seq(
+      field('name', $.identifier),
+      ':',
+      field('type', $.identifier),
     ),
 
     // import "./Sidebar.goi" as Sidebar
@@ -85,7 +106,7 @@ module.exports = grammar({
       $.element,
       $.if_block,
       $.each_block,
-      $.children_slot,
+      $.slot,
     ),
 
     // {#if cond} … {:else if cond} … {:else} … {/if}
@@ -125,8 +146,13 @@ module.exports = grammar({
       '{/each}',
     ),
 
-    // $children — where an instance's children go.
-    children_slot: $ => seq('$', alias('children', $.slot_name)),
+    // $children — where an instance's children go. A named slot such as
+    // `$actions { ... }` is the same marker with a body.
+    slot: $ => seq(
+      '$',
+      field('name', $.identifier),
+      optional(seq('{', repeat($._member), '}')),
+    ),
 
     // spacing: 8
     property: $ => seq(
@@ -193,6 +219,7 @@ module.exports = grammar({
       $.number,
       $.boolean,
       $.color,
+      $.handler_call,
       $.reference,
       $.parameter,
       $.identifier,
@@ -204,6 +231,18 @@ module.exports = grammar({
 
     // 50%
     percentage: $ => seq($.number, alias('%', $.percent_sign)),
+
+    // bridge.onOpen(post.id), the value of an event property.
+    handler_call: $ => seq(
+      field('function', $.reference),
+      '(',
+      optional(seq(
+        $.value,
+        repeat(seq(',', $.value)),
+        optional(','),
+      )),
+      ')',
+    ),
 
     // side.width, app.dark, window.width
     reference: $ => prec(1, seq(

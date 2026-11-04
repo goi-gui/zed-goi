@@ -11,5 +11,10 @@
 (each_block
   "{#each" @name) @item
 
+;; The declarations a file makes: rows and handlers.
+(bridge_block
+  ["bridge" "data"] @name
+  (data_field name: (identifier) @name) @item) @item
+
 (data_shape
   name: (identifier) @name) @item
