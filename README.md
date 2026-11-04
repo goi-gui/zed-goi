@@ -31,7 +31,9 @@ file declares. An `icon`/`trailingIcon`/`iconOn`/`iconOff` value completes to th
 names the embedded Material Symbols font actually has, read out of the woff, so
 the list cannot drift from what draws. `bridge.` completes the handlers the
 design declares, and an event property offers the handler calls it can use.
-`Ctrl`-click on an `import` path or its alias opens the fragment.
+Typing an expression offers the file's ids; after `panel.` the element's
+properties complete, hover explains either half, and `Ctrl`-click on an `import`
+path, its alias or an id jumps to its declaration.
 
 ## Language server
 
