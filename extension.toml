@@ -24,4 +24,4 @@ languages = ["Goi"]
 [grammars.goi]
 repository = "https://github.com/goi-gui/zed-goi"
 path = "tree-sitter-goi"
-rev = "d4a4243"
+rev = "4b225d9"
