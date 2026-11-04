@@ -17,7 +17,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "param_declaration"
+                "name": "props_block"
               },
               {
                 "type": "SYMBOL",
@@ -377,13 +377,50 @@
         }
       ]
     },
-    "param_declaration": {
+    "props_block": {
       "type": "SEQ",
       "members": [
         {
           "type": "STRING",
-          "value": "param"
+          "value": "props"
         },
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "prop_field"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "prop_field": {
+      "type": "SEQ",
+      "members": [
         {
           "type": "FIELD",
           "name": "name",
@@ -398,18 +435,31 @@
         },
         {
           "type": "FIELD",
-          "name": "value",
+          "name": "type",
           "content": {
             "type": "SYMBOL",
-            "name": "value"
+            "name": "identifier"
           }
         },
         {
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": ";"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "="
+                },
+                {
+                  "type": "FIELD",
+                  "name": "default",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "value"
+                  }
+                }
+              ]
             },
             {
               "type": "BLANK"
@@ -1074,10 +1124,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "parameter"
-        },
-        {
-          "type": "SYMBOL",
           "name": "identifier"
         },
         {
@@ -1219,19 +1265,6 @@
           }
         ]
       }
-    },
-    "parameter": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "$"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "identifier"
-        }
-      ]
     },
     "map": {
       "type": "SEQ",

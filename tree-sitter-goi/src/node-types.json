@@ -428,47 +428,6 @@
     }
   },
   {
-    "type": "param_declaration",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "value",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "parameter",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "parenthesized_expression",
     "named": true,
     "fields": {},
@@ -535,10 +494,6 @@
           "named": true
         },
         {
-          "type": "parameter",
-          "named": true
-        },
-        {
           "type": "parenthesized_expression",
           "named": true
         },
@@ -555,6 +510,42 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "prop_field",
+    "named": true,
+    "fields": {
+      "default": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -581,6 +572,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "props_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "prop_field",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -684,7 +690,7 @@
           "named": true
         },
         {
-          "type": "param_declaration",
+          "type": "props_block",
           "named": true
         }
       ]
@@ -873,6 +879,10 @@
     "named": false
   },
   {
+    "type": "=",
+    "named": false
+  },
+  {
     "type": "==",
     "named": false
   },
@@ -954,12 +964,12 @@
     "named": true
   },
   {
-    "type": "param",
-    "named": false
-  },
-  {
     "type": "percent_sign",
     "named": true
+  },
+  {
+    "type": "props",
+    "named": false
   },
   {
     "type": "true",

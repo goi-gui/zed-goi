@@ -17,7 +17,7 @@ module.exports = grammar({
     source_file: $ => seq(
       repeat(choice(
         $.import_statement,
-        $.param_declaration,
+        $.props_block,
         $.bridge_block,
         $.data_shape,
       )),
@@ -84,13 +84,20 @@ module.exports = grammar({
       optional(';'),
     ),
 
-    // param title: "Mail"
-    param_declaration: $ => seq(
-      'param',
+    // props { title: string = "untitled", count: number }
+    // The typed values a fragment expects; the body reads props.name.
+    props_block: $ => seq(
+      'props',
+      '{',
+      repeat(seq($.prop_field, optional(','))),
+      '}',
+    ),
+
+    prop_field: $ => seq(
       field('name', $.identifier),
       ':',
-      field('value', $.value),
-      optional(';'),
+      field('type', $.identifier),
+      optional(seq('=', field('default', $.value))),
     ),
 
     // Column { ... }
@@ -221,7 +228,6 @@ module.exports = grammar({
       $.color,
       $.handler_call,
       $.reference,
-      $.parameter,
       $.identifier,
       $.map,
       $.parenthesized_expression,
@@ -244,15 +250,12 @@ module.exports = grammar({
       ')',
     ),
 
-    // side.width, app.dark, window.width
+    // side.width, app.dark, window.width, props.title
     reference: $ => prec(1, seq(
       field('object', $.identifier),
       '.',
       field('member', $.identifier),
     )),
-
-    // $title — filled in by the instance that imports the fragment.
-    parameter: $ => seq('$', $.identifier),
 
     // { base: 16, md: 24 }
     map: $ => seq(

@@ -450,56 +450,51 @@ Rectangle {
                         (boolean)))))))))))))
 
 ==================
-Import and params
+Import and props
 ==================
 
 import "./Sidebar.goi" as Sidebar
 
-param title: "Mail"
-param width: 280
+props {
+	title: string = "Mail"
+	width: number
+}
 
 Column {
-	Text { text: $title }
+	Text { text: props.title }
 }
 
 ---
 
 (source_file
   (import_statement
-    (string)
-    (identifier))
-  (param_declaration
-    (identifier)
-    (value
-      (or_expression
-        (and_expression
-          (equality_expression
-            (comparison_expression
-              (sum_expression
-                (term_expression
-                  (unary_expression
-                    (primary
-                      (string)))))))))))
-  (param_declaration
-    (identifier)
-    (value
-      (or_expression
-        (and_expression
-          (equality_expression
-            (comparison_expression
-              (sum_expression
-                (term_expression
-                  (unary_expression
-                    (primary
-                      (number)))))))))))
-  (element
-    (element_name)
+    path: (string)
+    alias: (identifier))
+  (props_block
+    (prop_field
+      name: (identifier)
+      type: (identifier)
+      default: (value
+        condition: (or_expression
+          (and_expression
+            (equality_expression
+              (comparison_expression
+                (sum_expression
+                  (term_expression
+                    (unary_expression
+                      (primary
+                        (string)))))))))))
+    (prop_field
+      name: (identifier)
+      type: (identifier)))
+  root: (element
+    name: (element_name)
     (element
-      (element_name)
+      name: (element_name)
       (property
-        (identifier)
-        (value
-          (or_expression
+        name: (identifier)
+        value: (value
+          condition: (or_expression
             (and_expression
               (equality_expression
                 (comparison_expression
@@ -507,8 +502,9 @@ Column {
                     (term_expression
                       (unary_expression
                         (primary
-                          (parameter
-                            (identifier)))))))))))))))
+                          (reference
+                            object: (identifier)
+                            member: (identifier)))))))))))))))
 
 ==================
 Semicolons and comments

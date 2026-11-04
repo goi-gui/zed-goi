@@ -21,7 +21,8 @@ Element names read as types, property names as fields, and value identifiers
 framework resolves rather than variables. A `bridge` block reads as a contract:
 its handlers as functions, their parameters as parameters, and an event property
 (`onClick: bridge.onOpen(row.id)`) as a handler call. Row shapes declared with
-`type` read as types too.
+`type` read as types too, and a fragment's `props { title: string = "Mail" }`
+block reads as its inputs: the names as fields, their types as types.
 
 The language server is the same parser and schema the runtime uses, so a design
 that draws also type-checks: diagnostics land on the property they blame, even

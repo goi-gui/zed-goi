@@ -13,7 +13,7 @@
 (number) @number
 (boolean) @boolean
 
-["import" "as" "param" "bridge" "data" "type" "func"] @keyword
+["import" "as" "props" "bridge" "data" "type" "func"] @keyword
 
 ;; Block tags: {#if}, {:else}, {/if}, {#each}, {/each}. They read as control
 ;; flow, so they take the keyword colour rather than the punctuation one.
@@ -73,12 +73,20 @@
 (map_entry
   name: (identifier) @attribute)
 
-(param_declaration
-  name: (identifier) @variable.parameter)
+;; A fragment's input block: the prop names are fields, their types are types.
+(props_block
+  "props" @keyword)
 
-(parameter
-  "$" @punctuation.special
-  (identifier) @variable.parameter)
+(prop_field
+  name: (identifier) @property
+  type: (identifier) @type)
+
+;; props.title reads a declared input.
+(reference
+  object: (identifier) @namespace
+  "." @punctuation.delimiter
+  member: (identifier) @property
+  (#eq? @namespace "props"))
 
 (reference
   object: (identifier) @variable)
