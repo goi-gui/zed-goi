@@ -91,20 +91,20 @@ module.exports = grammar({
     ),
 
     // import "./Sidebar.goi" as Sidebar
+    // import Sidebar "./Sidebar.goi" — the alias first, as in Go.
     import_statement: $ => seq(
       'import',
-      field('path', $.string),
-      'as',
       field('alias', $.identifier),
+      field('path', $.string),
       optional(';'),
     ),
 
     // import "./Sidebar.goi" as Sidebar
+    // import Sidebar "./Sidebar.goi" — the alias first, as in Go.
     import_statement: $ => seq(
       'import',
-      field('path', $.string),
-      'as',
       field('alias', $.identifier),
+      field('path', $.string),
       optional(';'),
     ),
 
@@ -215,7 +215,7 @@ module.exports = grammar({
 
     primary: $ => choice(
       $.string,
-      $.formatf_call,
+      $.builtin_call,
       $.percentage,
       $.number,
       $.boolean,
@@ -232,9 +232,9 @@ module.exports = grammar({
     // 50%
     percentage: $ => seq($.number, alias('%', $.percent_sign)),
 
-    // formatf("%d items", bridge.Count) — Go's fmt verbs in a string value.
-    formatf_call: $ => seq(
-      'formatf',
+    // formatf("%d items", count), len(rows), min(a, b) — a builtin call.
+    builtin_call: $ => seq(
+      field('name', alias(choice('formatf', 'len', 'cap', 'min', 'max'), $.builtin_name)),
       '(',
       optional(seq(
         $.value,

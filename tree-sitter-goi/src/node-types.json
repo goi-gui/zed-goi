@@ -66,6 +66,32 @@
     }
   },
   {
+    "type": "builtin_call",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "builtin_name",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "comparison_expression",
     "named": true,
     "fields": {},
@@ -233,21 +259,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "formatf_call",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "value",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -498,11 +509,11 @@
           "named": true
         },
         {
-          "type": "color",
+          "type": "builtin_call",
           "named": true
         },
         {
-          "type": "formatf_call",
+          "type": "color",
           "named": true
         },
         {
@@ -952,12 +963,12 @@
     "named": false
   },
   {
-    "type": "as",
+    "type": "bridge",
     "named": false
   },
   {
-    "type": "bridge",
-    "named": false
+    "type": "builtin_name",
+    "named": true
   },
   {
     "type": "color",
@@ -998,10 +1009,6 @@
   },
   {
     "type": "for",
-    "named": false
-  },
-  {
-    "type": "formatf",
     "named": false
   },
   {

@@ -152,7 +152,8 @@ Window {
                           (term_expression
                             (unary_expression
                               (primary
-                                (formatf_call
+                                (builtin_call
+                                  name: (builtin_name)
                                   (value
                                     condition: (or_expression
                                       (and_expression

@@ -13,7 +13,7 @@
 (number) @number
 (boolean) @boolean
 
-["import" "as" "props" "bridge" "data" "type" "func" "if" "else" "for" "range"] @keyword
+["import" "props" "bridge" "data" "type" "func" "if" "else" "for" "range"] @keyword
 
 ;; $children is a slot, not a value; $actions { ... } fills a named one.
 (slot
@@ -36,6 +36,10 @@
   name: (identifier) @variable.parameter)
 
 (type_name) @type
+
+;; A builtin call reads as a function.
+(builtin_call
+  name: (builtin_name) @function.builtin)
 
 (conditional_question) @operator
 (conditional_colon) @operator

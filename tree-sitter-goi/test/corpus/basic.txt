@@ -336,7 +336,7 @@ Column {
 Import and props
 ==================
 
-import "./Sidebar.goi" as Sidebar
+import Sidebar "./Sidebar.goi"
 
 props {
 	Title  string
@@ -359,8 +359,8 @@ Column {
 
 (source_file
   (import_statement
-    path: (string)
-    alias: (identifier))
+    alias: (identifier)
+    path: (string))
   (props_block
     (declaration
       name: (identifier)
@@ -415,7 +415,8 @@ Column {
                     (term_expression
                       (unary_expression
                         (primary
-                          (formatf_call
+                          (builtin_call
+                            name: (builtin_name)
                             (value
                               condition: (or_expression
                                 (and_expression

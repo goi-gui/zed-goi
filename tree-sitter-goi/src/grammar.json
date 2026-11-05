@@ -347,22 +347,18 @@
         },
         {
           "type": "FIELD",
-          "name": "path",
-          "content": {
-            "type": "SYMBOL",
-            "name": "string"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "as"
-        },
-        {
-          "type": "FIELD",
           "name": "alias",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "path",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
           }
         },
         {
@@ -1026,7 +1022,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "formatf_call"
+          "name": "builtin_call"
         },
         {
           "type": "SYMBOL",
@@ -1101,12 +1097,42 @@
         }
       ]
     },
-    "formatf_call": {
+    "builtin_call": {
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "formatf"
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "formatf"
+                },
+                {
+                  "type": "STRING",
+                  "value": "len"
+                },
+                {
+                  "type": "STRING",
+                  "value": "cap"
+                },
+                {
+                  "type": "STRING",
+                  "value": "min"
+                },
+                {
+                  "type": "STRING",
+                  "value": "max"
+                }
+              ]
+            },
+            "named": true,
+            "value": "builtin_name"
+          }
         },
         {
           "type": "STRING",

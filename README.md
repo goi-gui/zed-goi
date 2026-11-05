@@ -16,14 +16,15 @@ language server for `.goi` design files.
 | Icon name completion (Material Symbols) | `cmd/goipls` + `internal/text` |
 | `app.` / `window.` global completion | `cmd/goipls` |
 
-Element names read as types, property names as fields, and value identifiers
+An import names its alias first (`import Sidebar "./Sidebar.goi"`), element
+names read as types, property names as fields, and value identifiers
 (`filled`, `primary`, `dark_mode`) as constants, because those are names the
 framework resolves rather than variables. A `bridge` block reads as Go fields:
 `OnOpen func(id string)` as a function, `Count int` as a field with a type, and
 an event property (`onClick: bridge.OnOpen(row.ID)`) as a handler call. Row
 types declared with `type` read as types too, and a fragment's
 `props { Title string }` block reads as its inputs. `if`, `else`, `for` and
-`range` are keywords, and `formatf` is a builtin.
+`range` are keywords, and `formatf`, `len`, `cap`, `min` and `max` are builtins.
 
 The language server is the same parser and schema the runtime uses, so a design
 that draws also type-checks: diagnostics land on the property they blame, even
@@ -34,10 +35,15 @@ names the embedded Material Symbols font actually has, read out of the woff, so
 the list cannot drift from what draws. `bridge.` and `props.` complete the
 declarations the file makes with their Go type, a declaration's type position
 completes Go's primitives and the declared types, an event property offers the
-handler calls it can use, and a string position offers `formatf`. Typing an
-expression offers the file's ids; after `panel.` the element's properties
-complete. Hover explains a declaration, a shape field and a loop variable, and
-`Ctrl`-click on an `import` path, its alias or an id jumps to its declaration.
+handler calls it can use, a value position offers the Go builtins (`formatf`,
+`len`, `cap`, `min`, `max`), and `textDocument/formatting` lets Zed format on
+save with the same rules as `goifmt`. Inside a
+fragment instance — `Counter { … }` — it reads the imported file and completes
+the props that fragment declares, the root properties the instance can override
+and the slots it fills. Typing an expression offers the file's ids; after
+`panel.` the element's properties complete. Hover explains a declaration, a shape
+field, a loop variable and a fragment, and `Ctrl`-click on an `import` path, its
+alias or an id jumps to its declaration.
 
 ## Language server
 
