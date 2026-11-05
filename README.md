@@ -15,6 +15,7 @@ language server for `.goi` design files.
 | Diagnostics, completion, hover, go-to-definition | `cmd/goipls` |
 | Icon name completion (Material Symbols) | `cmd/goipls` + `internal/text` |
 | `app.` / `window.` global completion | `cmd/goipls` |
+| Window chrome docs (`disableResize`, `fullscreen`, size limits) | `cmd/goipls` |
 
 An import names its alias first (`import Sidebar "./Sidebar.goi"`), element
 names read as types, property names as fields, and value identifiers
@@ -32,7 +33,9 @@ when it lives in an imported fragment. Completion knows the element you are
 inside, the values a property accepts, the theme's colour roles and the `id`s the
 file declares. A colour position accepts the Material roles plus any name the app
 defines at runtime with `ui.SetCustomColor` (`color: myBrand`), so hover says
-which of the two a word is instead of calling an unknown one an error. An `icon`/`trailingIcon`/`iconOn`/`iconOff` value completes to the
+which of the two a word is instead of calling an unknown one an error. Hover on a
+`Window` property explains the native window too: the size limits, and what
+`disableResize` and `fullscreen` do at runtime. An `icon`/`trailingIcon`/`iconOn`/`iconOff` value completes to the
 names the embedded Material Symbols font actually has, read out of the woff, so
 the list cannot drift from what draws. `bridge.` and `props.` complete the
 declarations the file makes with their Go type, a declaration's type position
