@@ -9,7 +9,7 @@ use zed_extension_api as zed;
 struct GoiExtension;
 
 const INSTALL_HINT: &str =
-    "goipls not found on PATH. Install it with `go install github.com/ksckaan1/goi/cmd/goipls@latest`";
+    "goipls not found on PATH. Install it with `go install github.com/goi-gui/goi/cmd/goipls@latest`";
 
 impl zed::Extension for GoiExtension {
     fn new() -> Self {

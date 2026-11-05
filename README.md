@@ -56,8 +56,11 @@ The server is a Go binary, so it is not bundled with the extension. Install it
 once and keep it on `PATH` (`~/.local/bin` is fine):
 
 ```sh
-go install github.com/ksckaan1/goi/cmd/goipls@latest
+go install github.com/goi-gui/goi/cmd/goipls@latest
 ```
+
+The module lives in a private repository, so set `GOPRIVATE=github.com/goi-gui/*`
+(and have a git credential for it) before installing.
 
 If Zed shows "goipls not found on PATH" in the language server menu, that
 command has not run or its directory is not on `PATH`. Restart the server from
@@ -76,7 +79,7 @@ a stdio server can use it.
 ```
 
 The server itself is `cmd/goipls` in
-[ksckaan1/goi](https://github.com/ksckaan1/goi) (transport and features live in
+[goi-gui/goi](https://github.com/goi-gui/goi) (transport and features live in
 `internal/lsp`).
 
 ## Install locally

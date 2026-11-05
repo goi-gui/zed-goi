@@ -13,7 +13,7 @@ kind = "Rust"
 version = "0.1.0"
 
 # The language server is a Go binary, so it is not bundled: install it with
-#   go install github.com/ksckaan1/goi/cmd/goipls@latest
+#   go install github.com/goi-gui/goi/cmd/goipls@latest
 # and keep it on PATH.
 [language_servers.goipls]
 name = "goipls"
