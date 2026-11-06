@@ -6,6 +6,11 @@
  * tokens, so a member is a property when its identifier is followed by `:` and
  * a child element when it is followed by `{`.
  */
+// commaSep1 joins one or more rules with commas, the way a case list reads.
+function commaSep1(rule) {
+  return seq(rule, repeat(seq(',', rule)));
+}
+
 module.exports = grammar({
   name: 'goi',
 
@@ -121,6 +126,7 @@ module.exports = grammar({
       $.element,
       $.if_block,
       $.for_block,
+      $.switch_block,
       $.slot,
     ),
 
@@ -145,6 +151,25 @@ module.exports = grammar({
       field('range', $.value),
       field('body', $.block_body),
     ),
+
+    // switch bridge.job { case "swe", "eee": … default: … }
+    switch_block: $ => seq(
+      'switch',
+      field('subject', $.value),
+      '{',
+      repeat(choice($.case_clause, $.default_clause)),
+      '}',
+    ),
+
+    // case "swe", "eee": — the arm's members follow, not its own braces.
+    case_clause: $ => seq(
+      'case',
+      commaSep1(field('value', $.value)),
+      ':',
+      repeat($._member),
+    ),
+
+    default_clause: $ => seq('default', ':', repeat($._member)),
 
     block_body: $ => seq('{', repeat($._member), '}'),
 

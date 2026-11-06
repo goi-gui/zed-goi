@@ -11,6 +11,9 @@
 (for_block
   "for" @name) @item
 
+(switch_block
+  "switch" @name) @item
+
 ;; The declarations a file makes: rows and handlers.
 (bridge_block
   ["bridge" "data"] @name

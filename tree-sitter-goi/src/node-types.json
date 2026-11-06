@@ -41,6 +41,10 @@
         {
           "type": "slot",
           "named": true
+        },
+        {
+          "type": "switch_block",
+          "named": true
         }
       ]
     }
@@ -86,6 +90,52 @@
       "types": [
         {
           "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "case_clause",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "element",
+          "named": true
+        },
+        {
+          "type": "for_block",
+          "named": true
+        },
+        {
+          "type": "if_block",
+          "named": true
+        },
+        {
+          "type": "property",
+          "named": true
+        },
+        {
+          "type": "slot",
+          "named": true
+        },
+        {
+          "type": "switch_block",
           "named": true
         }
       ]
@@ -159,6 +209,41 @@
     }
   },
   {
+    "type": "default_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "element",
+          "named": true
+        },
+        {
+          "type": "for_block",
+          "named": true
+        },
+        {
+          "type": "if_block",
+          "named": true
+        },
+        {
+          "type": "property",
+          "named": true
+        },
+        {
+          "type": "slot",
+          "named": true
+        },
+        {
+          "type": "switch_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "element",
     "named": true,
     "fields": {
@@ -195,6 +280,10 @@
         },
         {
           "type": "slot",
+          "named": true
+        },
+        {
+          "type": "switch_block",
           "named": true
         }
       ]
@@ -671,6 +760,10 @@
         {
           "type": "slot",
           "named": true
+        },
+        {
+          "type": "switch_block",
+          "named": true
         }
       ]
     }
@@ -739,6 +832,36 @@
       "types": [
         {
           "type": "term_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "switch_block",
+    "named": true,
+    "fields": {
+      "subject": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "case_clause",
+          "named": true
+        },
+        {
+          "type": "default_clause",
           "named": true
         }
       ]
@@ -971,6 +1094,10 @@
     "named": true
   },
   {
+    "type": "case",
+    "named": false
+  },
+  {
     "type": "color",
     "named": true
   },
@@ -989,6 +1116,10 @@
   },
   {
     "type": "data",
+    "named": false
+  },
+  {
+    "type": "default",
     "named": false
   },
   {
@@ -1045,6 +1176,10 @@
   },
   {
     "type": "range",
+    "named": false
+  },
+  {
+    "type": "switch",
     "named": false
   },
   {

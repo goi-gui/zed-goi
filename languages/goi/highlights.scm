@@ -13,7 +13,7 @@
 (number) @number
 (boolean) @boolean
 
-["import" "props" "bridge" "data" "type" "func" "if" "else" "for" "range"] @keyword
+["import" "props" "bridge" "data" "type" "func" "if" "else" "for" "range" "switch" "case" "default"] @keyword
 
 ;; $children is a slot, not a value; $actions { ... } fills a named one.
 (slot
