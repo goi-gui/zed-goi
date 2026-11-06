@@ -16,6 +16,7 @@ language server for `.goi` design files.
 | Icon name completion (Material Symbols) | `cmd/goipls` + `internal/text` |
 | `app.` / `window.` global completion | `cmd/goipls` |
 | Window chrome docs (`disableResize`, `fullscreen`, size limits) | `cmd/goipls` |
+| `.goi` file icon | `icons/` + `icon_themes/goi.json` |
 
 An import names its alias first (`import Sidebar "./Sidebar.goi"`), element
 names read as types, property names as fields, and value identifiers
@@ -24,8 +25,9 @@ framework resolves rather than variables. A `bridge` block reads as Go fields:
 `OnOpen func(id string)` as a function, `Count int` as a field with a type, and
 an event property (`onClick: bridge.OnOpen(row.ID)`) as a handler call. Row
 types declared with `type` read as types too, and a fragment's
-`props { Title string }` block reads as its inputs. `if`, `else`, `for` and
-`range` are keywords, and `formatf`, `len`, `cap`, `min` and `max` are builtins.
+`props { Title string }` block reads as its inputs. `if`, `else`, `for`,
+`range`, `switch`, `case` and `default` are keywords, and `formatf`, `len`,
+`cap`, `min` and `max` are builtins.
 
 The language server is the same parser and schema the runtime uses, so a design
 that draws also type-checks: diagnostics land on the property they blame, even
@@ -49,6 +51,17 @@ and the slots it fills. Typing an expression offers the file's ids; after
 `panel.` the element's properties complete. Hover explains a declaration, a shape
 field, a loop variable and a fragment, and `Ctrl`-click on an `import` path, its
 alias or an id jumps to its declaration.
+
+## File icon
+
+Zed draws file icons from icon themes, so the logo ships as a one-icon theme that
+inherits every other icon from Zed's default. Select it once in `settings.json`:
+
+```json
+{
+  "icon_theme": "Goi"
+}
+```
 
 ## Language server
 
@@ -75,6 +88,8 @@ a stdio server can use it.
 ├── extension.toml           # extension manifest: grammar + language server
 ├── src/lib.rs               # starts goipls from PATH; no other commands
 ├── languages/goi/           # language config and tree-sitter queries
+├── icons/goi.svg            # file icon for .goi
+├── icon_themes/goi.json     # registers that icon for the "goi" suffix
 └── tree-sitter-goi/         # the grammar (grammar.js + generated src/parser.c)
 ```
 

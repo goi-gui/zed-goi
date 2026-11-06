@@ -40,6 +40,7 @@ rm -rf "$dest"
 mkdir -p "$dest/grammars" "$dest/languages/goi"
 cp "$here/extension.toml" "$dest/"
 cp "$here/languages/goi/"* "$dest/languages/goi/"
+cp -r "$here/icons" "$here/icon_themes" "$dest/"
 cp "$here/tree-sitter-goi/goi.wasm" "$dest/grammars/goi.wasm"
 cp "$here/target/wasm32-wasip2/release/goi.wasm" "$dest/extension.wasm"
 

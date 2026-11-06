@@ -1,0 +1,19 @@
+{
+  "$schema": "https://zed.dev/schema/icon_themes/v0.3.0.json",
+  "name": "Goi",
+  "author": "goi contributors",
+  "themes": [
+    {
+      "name": "Goi",
+      "appearance": "dark",
+      "file_suffixes": {
+        "goi": "goi"
+      },
+      "file_icons": {
+        "goi": {
+          "path": "./icons/goi.svg"
+        }
+      }
+    }
+  ]
+}
