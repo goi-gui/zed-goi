@@ -439,3 +439,117 @@ Window {
               (shadow_number)
               (shadow_number)
               (color))))))))
+
+==================
+Window state and the desktop language
+==================
+
+Window {
+	maximized: false
+	Column {
+		Text { text: window.maximized ? "Restore" : "Maximize" }
+		Text { text: app.systemLanguage }
+		Rectangle { visible: window.minimized || !window.resizable }
+	}
+}
+
+---
+
+(source_file
+  (element
+    (element_name)
+    (property
+      (identifier)
+      (value
+        (or_expression
+          (and_expression
+            (equality_expression
+              (comparison_expression
+                (sum_expression
+                  (term_expression
+                    (unary_expression
+                      (primary
+                        (boolean)))))))))))
+    (element
+      (element_name)
+      (element
+        (element_name)
+        (property
+          (identifier)
+          (value
+            (or_expression
+              (and_expression
+                (equality_expression
+                  (comparison_expression
+                    (sum_expression
+                      (term_expression
+                        (unary_expression
+                          (primary
+                            (reference
+                              (identifier)
+                              (identifier))))))))))
+            (conditional_question)
+            (value
+              (or_expression
+                (and_expression
+                  (equality_expression
+                    (comparison_expression
+                      (sum_expression
+                        (term_expression
+                          (unary_expression
+                            (primary
+                              (string))))))))))
+            (conditional_colon)
+            (value
+              (or_expression
+                (and_expression
+                  (equality_expression
+                    (comparison_expression
+                      (sum_expression
+                        (term_expression
+                          (unary_expression
+                            (primary
+                              (string)))))))))))))
+      (element
+        (element_name)
+        (property
+          (identifier)
+          (value
+            (or_expression
+              (and_expression
+                (equality_expression
+                  (comparison_expression
+                    (sum_expression
+                      (term_expression
+                        (unary_expression
+                          (primary
+                            (reference
+                              (identifier)
+                              (identifier)))))))))))))
+      (element
+        (element_name)
+        (property
+          (identifier)
+          (value
+            (or_expression
+              (and_expression
+                (equality_expression
+                  (comparison_expression
+                    (sum_expression
+                      (term_expression
+                        (unary_expression
+                          (primary
+                            (reference
+                              (identifier)
+                              (identifier)))))))))
+              (and_expression
+                (equality_expression
+                  (comparison_expression
+                    (sum_expression
+                      (term_expression
+                        (unary_expression
+                          (unary_expression
+                            (primary
+                              (reference
+                                (identifier)
+                                (identifier)))))))))))))))))
