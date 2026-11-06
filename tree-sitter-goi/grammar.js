@@ -18,6 +18,15 @@ module.exports = grammar({
 
   word: $ => $.identifier,
 
+  // A shadow colour is a role name, and role names start lowercase while element
+  // names start uppercase, which is what keeps `shadow: 2 2` on one line from
+  // reading the next element's name as a colour.
+  //
+  // A layer with two numbers could still take the next number as its blur, so
+  // the ambiguity between blur, spread and the end of the layer is declared and
+  // left to the GLR parser.
+  conflicts: $ => [[$.shadow_layer]],
+
   rules: {
     source_file: $ => seq(
       repeat(choice(
@@ -171,6 +180,12 @@ module.exports = grammar({
 
     default_clause: $ => seq('default', ':', repeat($._member)),
 
+    // A shadow offset: a number, or a minus sign and a number.
+    shadow_number: $ => token(prec(1, /-?[0-9]+(\.[0-9]+)?/)),
+
+    // A theme role or custom colour name: lowercase-leading, unlike an element.
+    shadow_color: $ => token(prec(1, /[a-z][A-Za-z0-9_]*/)),
+
     block_body: $ => seq('{', repeat($._member), '}'),
 
     // $children — where an instance's children go. A named slot such as
@@ -181,12 +196,37 @@ module.exports = grammar({
       optional(seq('{', repeat($._member), '}')),
     ),
 
-    // spacing: 8
-    property: $ => seq(
-      field('name', $.identifier),
-      ':',
-      field('value', $.value),
-      optional(';'),
+    // spacing: 8, and shadow: 2 2 5 #ff0000 inset. Only the name `shadow` takes
+    // the shadow literal, which is what keeps `width: 8` a plain number.
+    property: $ => choice(
+      seq(
+        field('name', alias('shadow', $.shadow_name)),
+        ':',
+        field('shadow', $.shadow),
+        optional(';'),
+      ),
+      seq(
+        field('name', $.identifier),
+        ':',
+        field('value', $.value),
+        optional(';'),
+      ),
+    ),
+
+    shadow_name: _ => token(prec(2, 'shadow')),
+
+    // A CSS-style shadow list: one or more layers, comma separated.
+    shadow: $ => seq($.shadow_layer, repeat(seq(',', $.shadow_layer))),
+
+    // x y [blur [spread]] [color] [inset]. An offset may be negative, written
+    // the way CSS writes it.
+    shadow_layer: $ => seq(
+      field('x', $.shadow_number),
+      field('y', $.shadow_number),
+      optional(field('blur', $.shadow_number)),
+      optional(field('spread', $.shadow_number)),
+      optional(field('color', choice($.color, $.shadow_color))),
+      optional('inset'),
     ),
 
     // Values are one expression grammar, so `text: hello` and

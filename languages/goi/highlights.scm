@@ -15,6 +15,12 @@
 
 ["import" "props" "bridge" "data" "type" "func" "if" "else" "for" "range" "switch" "case" "default"] @keyword
 
+;; shadow: 2 2 5 primary, 0 4 12 #000000 inset — the insets keyword and a role
+;; colour, which reads as a constant like every other role name.
+(shadow_name) @property
+(shadow_layer "inset" @keyword)
+(shadow_color) @constant
+
 ;; $children is a slot, not a value; $actions { ... } fills a named one.
 (slot
   "$" @punctuation.special

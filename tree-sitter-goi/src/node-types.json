@@ -651,12 +651,26 @@
           {
             "type": "identifier",
             "named": true
+          },
+          {
+            "type": "shadow_name",
+            "named": true
+          }
+        ]
+      },
+      "shadow": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "shadow",
+            "named": true
           }
         ]
       },
       "value": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "value",
@@ -701,6 +715,81 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "shadow",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "shadow_layer",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "shadow_layer",
+    "named": true,
+    "fields": {
+      "blur": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "shadow_number",
+            "named": true
+          }
+        ]
+      },
+      "color": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "color",
+            "named": true
+          },
+          {
+            "type": "shadow_color",
+            "named": true
+          }
+        ]
+      },
+      "spread": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "shadow_number",
+            "named": true
+          }
+        ]
+      },
+      "x": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "shadow_number",
+            "named": true
+          }
+        ]
+      },
+      "y": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "shadow_number",
             "named": true
           }
         ]
@@ -1159,6 +1248,10 @@
     "named": false
   },
   {
+    "type": "inset",
+    "named": false
+  },
+  {
     "type": "map",
     "named": false
   },
@@ -1177,6 +1270,18 @@
   {
     "type": "range",
     "named": false
+  },
+  {
+    "type": "shadow_color",
+    "named": true
+  },
+  {
+    "type": "shadow_name",
+    "named": true
+  },
+  {
+    "type": "shadow_number",
+    "named": true
   },
   {
     "type": "switch",

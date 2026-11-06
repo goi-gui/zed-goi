@@ -377,3 +377,65 @@ Window {
                                                 (unary_expression
                                                   (primary
                                                     (identifier)))))))))))))))))))))))))))
+
+==================
+Shadows
+==================
+
+Window {
+	Column {
+		Text {
+			text: "x"
+			shadow: 2 2 5 primary, -2 -2 5 #0000ff
+		}
+		Rectangle {
+			shadow: 0 4 12 2 #00000026 inset
+		}
+	}
+}
+
+---
+
+(source_file
+  (element
+    (element_name)
+    (element
+      (element_name)
+      (element
+        (element_name)
+        (property
+          (identifier)
+          (value
+            (or_expression
+              (and_expression
+                (equality_expression
+                  (comparison_expression
+                    (sum_expression
+                      (term_expression
+                        (unary_expression
+                          (primary
+                            (string)))))))))))
+        (property
+          (shadow_name)
+          (shadow
+            (shadow_layer
+              (shadow_number)
+              (shadow_number)
+              (shadow_number)
+              (shadow_color))
+            (shadow_layer
+              (shadow_number)
+              (shadow_number)
+              (shadow_number)
+              (color)))))
+      (element
+        (element_name)
+        (property
+          (shadow_name)
+          (shadow
+            (shadow_layer
+              (shadow_number)
+              (shadow_number)
+              (shadow_number)
+              (shadow_number)
+              (color))))))))
