@@ -21,6 +21,10 @@
 (shadow_layer "inset" @keyword)
 (shadow_color) @constant
 
+;; decoration: underline overline — each stroke name is a constant.
+(decoration_name) @property
+(decoration_keyword) @constant
+
 ;; $children is a slot, not a value; $actions { ... } fills a named one.
 (slot
   "$" @punctuation.special

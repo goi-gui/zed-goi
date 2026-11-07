@@ -553,3 +553,66 @@ Window {
                               (reference
                                 (identifier)
                                 (identifier)))))))))))))))))
+
+==================
+Text decorations
+==================
+
+Window {
+	Text {
+		decoration: underline overline
+		decorationStyle: wavy
+		decorationThickness: 2
+	}
+	Text { decoration: line-through }
+	Text { decoration: none }
+}
+
+---
+
+(source_file
+  (element
+    (element_name)
+    (element
+      (element_name)
+      (property
+        (decoration_name)
+        (decoration
+          (decoration_keyword)
+          (decoration_keyword)))
+      (property
+        (identifier)
+        (value
+          (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (identifier)))))))))))
+      (property
+        (identifier)
+        (value
+          (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (number))))))))))))
+    (element
+      (element_name)
+      (property
+        (decoration_name)
+        (decoration
+          (decoration_keyword))))
+    (element
+      (element_name)
+      (property
+        (decoration_name)
+        (decoration
+          (decoration_keyword))))))

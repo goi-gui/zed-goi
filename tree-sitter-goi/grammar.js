@@ -197,12 +197,19 @@ module.exports = grammar({
     ),
 
     // spacing: 8, and shadow: 2 2 5 #ff0000 inset. Only the name `shadow` takes
-    // the shadow literal, which is what keeps `width: 8` a plain number.
+    // the shadow literal, which is what keeps `width: 8` a plain number; the
+    // same holds for a decoration's juxtaposed keywords.
     property: $ => choice(
       seq(
         field('name', alias('shadow', $.shadow_name)),
         ':',
         field('shadow', $.shadow),
+        optional(';'),
+      ),
+      seq(
+        field('name', alias('decoration', $.decoration_name)),
+        ':',
+        field('decoration', $.decoration),
         optional(';'),
       ),
       seq(
@@ -214,6 +221,13 @@ module.exports = grammar({
     ),
 
     shadow_name: _ => token(prec(2, 'shadow')),
+
+    // decoration: underline overline — one or more keywords, `none` alone.
+    decoration_name: _ => token(prec(2, 'decoration')),
+
+    decoration: $ => seq($.decoration_keyword, repeat($.decoration_keyword)),
+
+    decoration_keyword: _ => choice('none', 'underline', 'overline', 'line-through'),
 
     // A CSS-style shadow list: one or more layers, comma separated.
     shadow: $ => seq($.shadow_layer, repeat(seq(',', $.shadow_layer))),

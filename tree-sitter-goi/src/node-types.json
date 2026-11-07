@@ -209,6 +209,26 @@
     }
   },
   {
+    "type": "decoration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "decoration_keyword",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "decoration_keyword",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "default_clause",
     "named": true,
     "fields": {},
@@ -644,10 +664,24 @@
     "type": "property",
     "named": true,
     "fields": {
+      "decoration": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "decoration",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "decoration_name",
+            "named": true
+          },
           {
             "type": "identifier",
             "named": true
@@ -1208,6 +1242,10 @@
     "named": false
   },
   {
+    "type": "decoration_name",
+    "named": true
+  },
+  {
     "type": "default",
     "named": false
   },
@@ -1252,12 +1290,24 @@
     "named": false
   },
   {
+    "type": "line-through",
+    "named": false
+  },
+  {
     "type": "map",
+    "named": false
+  },
+  {
+    "type": "none",
     "named": false
   },
   {
     "type": "number",
     "named": true
+  },
+  {
+    "type": "overline",
+    "named": false
   },
   {
     "type": "percent_sign",
@@ -1293,6 +1343,10 @@
   },
   {
     "type": "type",
+    "named": false
+  },
+  {
+    "type": "underline",
     "named": false
   },
   {

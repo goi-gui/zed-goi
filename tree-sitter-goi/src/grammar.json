@@ -851,6 +851,48 @@
               "type": "FIELD",
               "name": "name",
               "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "STRING",
+                  "value": "decoration"
+                },
+                "named": true,
+                "value": "decoration_name"
+              }
+            },
+            {
+              "type": "STRING",
+              "value": ":"
+            },
+            {
+              "type": "FIELD",
+              "name": "decoration",
+              "content": {
+                "type": "SYMBOL",
+                "name": "decoration"
+              }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ";"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "name",
+              "content": {
                 "type": "SYMBOL",
                 "name": "identifier"
               }
@@ -893,6 +935,54 @@
           "value": "shadow"
         }
       }
+    },
+    "decoration_name": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 2,
+        "content": {
+          "type": "STRING",
+          "value": "decoration"
+        }
+      }
+    },
+    "decoration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "decoration_keyword"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "decoration_keyword"
+          }
+        }
+      ]
+    },
+    "decoration_keyword": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "none"
+        },
+        {
+          "type": "STRING",
+          "value": "underline"
+        },
+        {
+          "type": "STRING",
+          "value": "overline"
+        },
+        {
+          "type": "STRING",
+          "value": "line-through"
+        }
+      ]
     },
     "shadow": {
       "type": "SEQ",
