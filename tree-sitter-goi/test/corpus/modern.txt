@@ -1,0 +1,275 @@
+==================
+A block string spans lines
+==================
+
+Window {
+	Markdown {
+		text: !"# Title
+
+			A paragraph"!
+	}
+}
+
+---
+
+(source_file
+  (element
+    (element_name)
+    (element
+      (element_name)
+      (property
+        (identifier)
+        (value
+          (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (block_string))))))))))))))
+
+==================
+A list of numbers and names
+==================
+
+Window {
+	BarChart {
+		categories: ["Jan", "Feb"]
+		ChartSeries {
+			values: [12, 18, 9]
+		}
+	}
+}
+
+---
+
+(source_file
+  (element
+    (element_name)
+    (element
+      (element_name)
+      (property
+        (identifier)
+        (value
+          (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (list
+                            (value
+                              (or_expression
+                                (and_expression
+                                  (equality_expression
+                                    (comparison_expression
+                                      (sum_expression
+                                        (term_expression
+                                          (unary_expression
+                                            (primary
+                                              (string))))))))))
+                            (value
+                              (or_expression
+                                (and_expression
+                                  (equality_expression
+                                    (comparison_expression
+                                      (sum_expression
+                                        (term_expression
+                                          (unary_expression
+                                            (primary
+                                              (string)))))))))))))))))))))
+      (element
+        (element_name)
+        (property
+          (identifier)
+          (value
+            (or_expression
+              (and_expression
+                (equality_expression
+                  (comparison_expression
+                    (sum_expression
+                      (term_expression
+                        (unary_expression
+                          (primary
+                            (list
+                              (value
+                                (or_expression
+                                  (and_expression
+                                    (equality_expression
+                                      (comparison_expression
+                                        (sum_expression
+                                          (term_expression
+                                            (unary_expression
+                                              (primary
+                                                (number))))))))))
+                              (value
+                                (or_expression
+                                  (and_expression
+                                    (equality_expression
+                                      (comparison_expression
+                                        (sum_expression
+                                          (term_expression
+                                            (unary_expression
+                                              (primary
+                                                (number))))))))))
+                              (value
+                                (or_expression
+                                  (and_expression
+                                    (equality_expression
+                                      (comparison_expression
+                                        (sum_expression
+                                          (term_expression
+                                            (unary_expression
+                                              (primary
+                                                (number)))))))))))))))))))))))))
+
+==================
+Responsive and conditional blocks
+==================
+
+Window {
+	Column {
+		padding: responsive {
+			base: 8
+			md: 16
+		}
+		background: conditional {
+			"#00ff0033": bridge.wide
+			4: !bridge.wide
+		}
+	}
+}
+
+---
+
+(source_file
+  (element
+    (element_name)
+    (element
+      (element_name)
+      (property
+        (identifier)
+        (value
+          (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (modifier
+                            (map_entry
+                              (identifier)
+                              (value
+                                (or_expression
+                                  (and_expression
+                                    (equality_expression
+                                      (comparison_expression
+                                        (sum_expression
+                                          (term_expression
+                                            (unary_expression
+                                              (primary
+                                                (number)))))))))))
+                            (map_entry
+                              (identifier)
+                              (value
+                                (or_expression
+                                  (and_expression
+                                    (equality_expression
+                                      (comparison_expression
+                                        (sum_expression
+                                          (term_expression
+                                            (unary_expression
+                                              (primary
+                                                (number))))))))))))))))))))))
+      (property
+        (identifier)
+        (value
+          (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (modifier
+                            (conditional_entry
+                              (conditional_key
+                                (string))
+                              (value
+                                (or_expression
+                                  (and_expression
+                                    (equality_expression
+                                      (comparison_expression
+                                        (sum_expression
+                                          (term_expression
+                                            (unary_expression
+                                              (primary
+                                                (reference
+                                                  (identifier)
+                                                  (identifier))))))))))))
+                            (conditional_entry
+                              (conditional_key
+                                (number))
+                              (value
+                                (or_expression
+                                  (and_expression
+                                    (equality_expression
+                                      (comparison_expression
+                                        (sum_expression
+                                          (term_expression
+                                            (unary_expression
+                                              (unary_expression
+                                                (primary
+                                                  (reference
+                                                    (identifier)
+                                                    (identifier)))))))))))))))))))))))))))
+
+==================
+Rotate values
+==================
+
+Window {
+	Rectangle {
+		rotate: 45deg
+	}
+	Rectangle {
+		rotate: z 90deg
+	}
+	Rectangle {
+		rotate: 1 1 1 25turn
+	}
+}
+
+---
+
+(source_file
+  (element
+    (element_name)
+    (element
+      (element_name)
+      (property
+        (rotate_name)
+        (rotate
+          (angle))))
+    (element
+      (element_name)
+      (property
+        (rotate_name)
+        (rotate
+          (angle))))
+    (element
+      (element_name)
+      (property
+        (rotate_name)
+        (rotate
+          (number)
+          (number)
+          (number)
+          (angle))))))

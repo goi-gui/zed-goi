@@ -213,6 +213,12 @@ module.exports = grammar({
         optional(';'),
       ),
       seq(
+        field('name', alias('rotate', $.rotate_name)),
+        ':',
+        field('rotate', $.rotate),
+        optional(';'),
+      ),
+      seq(
         field('name', $.identifier),
         ':',
         field('value', $.value),
@@ -228,6 +234,20 @@ module.exports = grammar({
     decoration: $ => seq($.decoration_keyword, repeat($.decoration_keyword)),
 
     decoration_keyword: _ => choice('none', 'underline', 'overline', 'line-through'),
+
+    rotate_name: _ => token(prec(2, 'rotate')),
+
+    // rotate: none, 45deg, z 90deg, 1 1 1 90deg — CSS form, degrees or another
+    // unit. A turn about a non-z axis is stored but not drawn, which is why the
+    // grammar accepts the three-number vector form.
+    rotate: $ => choice(
+      'none',
+      $.angle,
+      seq(choice('x', 'y', 'z'), $.angle),
+      seq($.number, $.number, $.number, $.angle),
+    ),
+
+    angle: _ => token(prec(1, /-?[0-9]+(\.[0-9]+)?(deg|rad|turn|grad)/)),
 
     // A CSS-style shadow list: one or more layers, comma separated.
     shadow: $ => seq($.shadow_layer, repeat(seq(',', $.shadow_layer))),
@@ -293,7 +313,10 @@ module.exports = grammar({
     ),
 
     primary: $ => choice(
+      $.block_string,
       $.string,
+      $.list,
+      $.modifier,
       $.builtin_call,
       $.percentage,
       $.number,
@@ -313,7 +336,7 @@ module.exports = grammar({
 
     // formatf("%d items", count), len(rows), min(a, b) — a builtin call.
     builtin_call: $ => seq(
-      field('name', alias(choice('formatf', 'len', 'cap', 'min', 'max'), $.builtin_name)),
+      field('name', alias(choice('formatf', 't', 'len', 'cap', 'min', 'max'), $.builtin_name)),
       '(',
       optional(seq(
         $.value,
@@ -324,7 +347,7 @@ module.exports = grammar({
     ),
 
     // bridge.onOpen(post.id), the value of an event property.
-    handler_call: $ => seq(
+    handler_call: $ => prec(2, seq(
       field('function', $.reference),
       '(',
       optional(seq(
@@ -333,7 +356,7 @@ module.exports = grammar({
         optional(','),
       )),
       ')',
-    ),
+    )),
 
     // side.width, app.dark, window.width, props.title
     reference: $ => prec(1, seq(
@@ -347,7 +370,7 @@ module.exports = grammar({
       '{',
       optional(seq(
         $.map_entry,
-        repeat(seq(',', $.map_entry)),
+        repeat(seq(optional(','), $.map_entry)),
         optional(','),
       )),
       '}',
@@ -357,6 +380,73 @@ module.exports = grammar({
       field('name', $.identifier),
       ':',
       field('value', $.value),
+    ),
+
+    // !"…"! — a string that spans lines, written as one token so a newline and
+    // a `#` inside it are text, not layout or a comment.
+    block_string: $ => token(seq(
+      '!"',
+      repeat(choice(/[^"]/, seq('"', /[^!]/))),
+      '"!',
+    )),
+
+    // [1, 2, 3], ["Jan", "Feb"] — a property whose value is a list.
+    list: $ => seq(
+      '[',
+      optional(seq(
+        $.value,
+        repeat(seq(',', $.value)),
+        optional(','),
+      )),
+      ']',
+    ),
+
+    // responsive { base: 8, md: 16 } and conditional { 10: bridge.wide }.
+    // The keyword is what tells these from a plain map value, and a
+    // conditional entry is a value and the condition that picks it.
+    modifier: $ => choice(
+      // The entries of both blocks may be written one per line with no comma,
+      // which is how a design writes them once there is more than one.
+      seq(
+        'responsive',
+        '{',
+        optional(seq(
+          $.map_entry,
+          repeat(seq(optional(','), $.map_entry)),
+          optional(','),
+        )),
+        '}',
+      ),
+      seq(
+        'conditional',
+        '{',
+        optional(seq(
+          $.conditional_entry,
+          repeat(seq(optional(','), $.conditional_entry)),
+          optional(','),
+        )),
+        '}',
+      ),
+    ),
+
+    // The key is a literal, not a full expression: `- 1` after a condition is a
+    // subtraction, not the start of the next entry, and only a key that cannot
+    // begin with an operator keeps that reading unambiguous. The entries may be
+    // written one per line with no comma, which is how a design writes them.
+    conditional_entry: $ => seq(
+      field('value', $.conditional_key),
+      ':',
+      field('condition', $.value),
+    ),
+
+    conditional_key: $ => choice(
+      $.number,
+      $.percentage,
+      $.string,
+      $.boolean,
+      $.color,
+      $.identifier,
+      $.reference,
     ),
 
     string: $ => seq(

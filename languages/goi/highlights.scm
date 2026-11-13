@@ -9,11 +9,14 @@
 
 (escape_sequence) @string.escape
 (string) @string
+
+;; !"…"!: a block string is one token, so its interior is not laid out as code.
+(block_string) @string
 (color) @string.special
 (number) @number
 (boolean) @boolean
 
-["import" "props" "bridge" "data" "type" "func" "if" "else" "for" "range" "switch" "case" "default"] @keyword
+["import" "props" "bridge" "data" "type" "func" "if" "else" "for" "range" "switch" "case" "default" "responsive" "conditional"] @keyword
 
 ;; shadow: 2 2 5 primary, 0 4 12 #000000 inset — the insets keyword and a role
 ;; colour, which reads as a constant like every other role name.
@@ -24,6 +27,11 @@
 ;; decoration: underline overline — each stroke name is a constant.
 (decoration_name) @property
 (decoration_keyword) @constant
+
+;; rotate: 45deg, z 90deg, 1 1 1 25turn — the name is a property, the angle a
+;; number with its unit.
+(rotate_name) @property
+(angle) @number
 
 ;; $children is a slot, not a value; $actions { ... } fills a named one.
 (slot
