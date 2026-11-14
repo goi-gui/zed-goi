@@ -183,8 +183,9 @@ module.exports = grammar({
     // A shadow offset: a number, or a minus sign and a number.
     shadow_number: $ => token(prec(1, /-?[0-9]+(\.[0-9]+)?/)),
 
-    // A theme role or custom colour name: lowercase-leading, unlike an element.
-    shadow_color: $ => token(prec(1, /[a-z][A-Za-z0-9_]*/)),
+    // A shadow colour: a CSS name, or a colour variable with its namespace,
+    // `theme.primary` or `customColor.brand`.
+    shadow_color: $ => token(prec(1, /[a-z][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)?/)),
 
     block_body: $ => seq('{', repeat($._member), '}'),
 

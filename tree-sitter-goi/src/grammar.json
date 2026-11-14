@@ -730,7 +730,7 @@
         "value": 1,
         "content": {
           "type": "PATTERN",
-          "value": "[a-z][A-Za-z0-9_]*"
+          "value": "[a-z][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)?"
         }
       }
     },

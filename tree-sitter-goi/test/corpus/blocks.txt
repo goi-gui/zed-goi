@@ -386,10 +386,10 @@ Window {
 	Column {
 		Text {
 			text: "x"
-			shadow: 2 2 5 primary, -2 -2 5 #0000ff
+			shadow: 2 2 5 theme.primary, -2 -2 5 #0000ff
 		}
 		Rectangle {
-			shadow: 0 4 12 2 #00000026 inset
+			shadow: 0 4 12 2 customColor.brand inset
 		}
 	}
 }
@@ -438,7 +438,7 @@ Window {
               (shadow_number)
               (shadow_number)
               (shadow_number)
-              (color))))))))
+              (shadow_color))))))))
 
 ==================
 Window state and the desktop language
