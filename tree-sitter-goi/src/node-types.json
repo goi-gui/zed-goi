@@ -23,6 +23,14 @@
       "required": false,
       "types": [
         {
+          "type": "break_statement",
+          "named": true
+        },
+        {
+          "type": "continue_statement",
+          "named": true
+        },
+        {
           "type": "element",
           "named": true
         },
@@ -51,6 +59,11 @@
   },
   {
     "type": "boolean",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "break_statement",
     "named": true,
     "fields": {}
   },
@@ -114,6 +127,14 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "break_statement",
+          "named": true
+        },
+        {
+          "type": "continue_statement",
+          "named": true
+        },
         {
           "type": "element",
           "named": true
@@ -222,6 +243,11 @@
     }
   },
   {
+    "type": "continue_statement",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "data_shape",
     "named": true,
     "fields": {
@@ -302,6 +328,14 @@
       "required": false,
       "types": [
         {
+          "type": "break_statement",
+          "named": true
+        },
+        {
+          "type": "continue_statement",
+          "named": true
+        },
+        {
           "type": "element",
           "named": true
         },
@@ -347,6 +381,14 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "break_statement",
+          "named": true
+        },
+        {
+          "type": "continue_statement",
+          "named": true
+        },
         {
           "type": "element",
           "named": true
@@ -1009,6 +1051,14 @@
       "required": false,
       "types": [
         {
+          "type": "break_statement",
+          "named": true
+        },
+        {
+          "type": "continue_statement",
+          "named": true
+        },
+        {
           "type": "element",
           "named": true
         },
@@ -1277,6 +1327,10 @@
     "named": false
   },
   {
+    "type": "%",
+    "named": false
+  },
+  {
     "type": "&&",
     "named": false
   },
@@ -1361,6 +1415,10 @@
     "named": true
   },
   {
+    "type": "break",
+    "named": false
+  },
+  {
     "type": "bridge",
     "named": false
   },
@@ -1392,6 +1450,10 @@
   {
     "type": "conditional_question",
     "named": true
+  },
+  {
+    "type": "continue",
+    "named": false
   },
   {
     "type": "data",

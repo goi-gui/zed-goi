@@ -26,7 +26,7 @@ framework resolves rather than variables. A `bridge` block reads as Go fields:
 an event property (`onClick: bridge.OnOpen(row.ID)`) as a handler call. Row
 types declared with `type` read as types too, and a fragment's
 `props { Title string }` block reads as its inputs. `if`, `else`, `for`,
-`range`, `switch`, `case` and `default` are keywords, and `formatf`, `t`, `len`,
+`range`, `switch`, `case`, `default`, `continue` and `break` are keywords, and `formatf`, `t`, `len`,
 `cap`, `min` and `max` are builtins. A `!"…"!` block string is one token, so the
 document inside it is never read as code; a list (`[12, 18, 9]`), a
 `responsive { … }` or `conditional { … }` block and a `rotate:` angle with its

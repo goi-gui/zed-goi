@@ -136,6 +136,8 @@ module.exports = grammar({
       $.if_block,
       $.for_block,
       $.switch_block,
+      $.continue_statement,
+      $.break_statement,
       $.slot,
     ),
 
@@ -160,6 +162,11 @@ module.exports = grammar({
       field('range', $.value),
       field('body', $.block_body),
     ),
+
+    // continue and break are statements, not braced blocks.
+    continue_statement: $ => seq('continue', optional(';')),
+
+    break_statement: $ => seq('break', optional(';')),
 
     // switch bridge.job { case "swe", "eee": … default: … }
     switch_block: $ => seq(
@@ -305,7 +312,7 @@ module.exports = grammar({
 
     term_expression: $ => prec.left(seq(
       $.unary_expression,
-      repeat(seq(choice('*', '/'), $.unary_expression)),
+      repeat(seq(choice('*', '/', '%'), $.unary_expression)),
     )),
 
     unary_expression: $ => choice(
@@ -332,8 +339,10 @@ module.exports = grammar({
 
     parenthesized_expression: $ => seq('(', $.value, ')'),
 
-    // 50%
-    percentage: $ => seq($.number, alias('%', $.percent_sign)),
+    // 50% is a percentage only when the % touches the number; `50 % 2` is
+    // modulo, and a spaced % after a number is still a percentage when nothing
+    // follows it, as the runtime parser reads it.
+    percentage: $ => seq($.number, alias(token.immediate('%'), $.percent_sign)),
 
     // formatf("%d items", count), len(rows), min(a, b) — a builtin call.
     builtin_call: $ => seq(

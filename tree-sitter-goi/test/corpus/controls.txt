@@ -1,0 +1,90 @@
+==================
+Continue and break
+==================
+
+Window {
+	Column {
+		for i := range 5 {
+			if i == 1 {
+				continue
+			}
+			if i == 3 {
+				break
+			}
+			Text { text: "x" }
+		}
+	}
+}
+
+---
+
+(source_file
+  (element
+    (element_name)
+    (element
+      (element_name)
+      (for_block
+        (identifier)
+        (value
+          (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (number))))))))))
+        (block_body
+          (if_block
+            (value
+              (or_expression
+                (and_expression
+                  (equality_expression
+                    (comparison_expression
+                      (sum_expression
+                        (term_expression
+                          (unary_expression
+                            (primary
+                              (identifier))))))
+                    (comparison_expression
+                      (sum_expression
+                        (term_expression
+                          (unary_expression
+                            (primary
+                              (number))))))))))
+            (block_body
+              (continue_statement)))
+          (if_block
+            (value
+              (or_expression
+                (and_expression
+                  (equality_expression
+                    (comparison_expression
+                      (sum_expression
+                        (term_expression
+                          (unary_expression
+                            (primary
+                              (identifier))))))
+                    (comparison_expression
+                      (sum_expression
+                        (term_expression
+                          (unary_expression
+                            (primary
+                              (number))))))))))
+            (block_body
+              (break_statement)))
+          (element
+            (element_name)
+            (property
+              (identifier)
+              (value
+                (or_expression
+                  (and_expression
+                    (equality_expression
+                      (comparison_expression
+                        (sum_expression
+                          (term_expression
+                            (unary_expression
+                              (primary
+                                (string)))))))))))))))))

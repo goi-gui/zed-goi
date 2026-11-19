@@ -1,0 +1,72 @@
+==================
+Modulo and percentage
+==================
+
+Window {
+	Column {
+		Text { text: formatf("%d", 5 % 2) }
+		Rectangle { width: 50% }
+	}
+}
+
+---
+
+(source_file
+  (element
+    (element_name)
+    (element
+      (element_name)
+      (element
+        (element_name)
+        (property
+          (identifier)
+          (value
+            (or_expression
+              (and_expression
+                (equality_expression
+                  (comparison_expression
+                    (sum_expression
+                      (term_expression
+                        (unary_expression
+                          (primary
+                            (builtin_call
+                              (builtin_name)
+                              (value
+                                (or_expression
+                                  (and_expression
+                                    (equality_expression
+                                      (comparison_expression
+                                        (sum_expression
+                                          (term_expression
+                                            (unary_expression
+                                              (primary
+                                                (string))))))))))
+                              (value
+                                (or_expression
+                                  (and_expression
+                                    (equality_expression
+                                      (comparison_expression
+                                        (sum_expression
+                                          (term_expression
+                                            (unary_expression
+                                              (primary
+                                                (number)))
+                                            (unary_expression
+                                              (primary
+                                                (number))))))))))))))))))))))
+      (element
+        (element_name)
+        (property
+          (identifier)
+          (value
+            (or_expression
+              (and_expression
+                (equality_expression
+                  (comparison_expression
+                    (sum_expression
+                      (term_expression
+                        (unary_expression
+                          (primary
+                            (percentage
+                              (number)
+                              (percent_sign))))))))))))))))
