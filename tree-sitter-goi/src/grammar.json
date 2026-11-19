@@ -1682,11 +1682,8 @@
         {
           "type": "ALIAS",
           "content": {
-            "type": "IMMEDIATE_TOKEN",
-            "content": {
-              "type": "STRING",
-              "value": "%"
-            }
+            "type": "STRING",
+            "value": "%"
           },
           "named": true,
           "value": "percent_sign"
@@ -2477,6 +2474,10 @@
   "conflicts": [
     [
       "shadow_layer"
+    ],
+    [
+      "primary",
+      "percentage"
     ]
   ],
   "precedences": [],

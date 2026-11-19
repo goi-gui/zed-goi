@@ -25,7 +25,7 @@ module.exports = grammar({
   // A layer with two numbers could still take the next number as its blur, so
   // the ambiguity between blur, spread and the end of the layer is declared and
   // left to the GLR parser.
-  conflicts: $ => [[$.shadow_layer]],
+  conflicts: $ => [[$.shadow_layer], [$.primary, $.percentage]],
 
   rules: {
     source_file: $ => seq(
@@ -339,10 +339,10 @@ module.exports = grammar({
 
     parenthesized_expression: $ => seq('(', $.value, ')'),
 
-    // 50% is a percentage only when the % touches the number; `50 % 2` is
-    // modulo, and a spaced % after a number is still a percentage when nothing
-    // follows it, as the runtime parser reads it.
-    percentage: $ => seq($.number, alias(token.immediate('%'), $.percent_sign)),
+    // 50% and 50 % are both percentages; a % with a following value is the
+    // modulo operator. The conflict with primary lets the parser take the
+    // reading that continues.
+    percentage: $ => seq($.number, alias('%', $.percent_sign)),
 
     // formatf("%d items", count), len(rows), min(a, b) — a builtin call.
     builtin_call: $ => seq(
