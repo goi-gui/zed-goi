@@ -227,6 +227,12 @@ module.exports = grammar({
         optional(';'),
       ),
       seq(
+        field('name', alias('transition', $.transition_name)),
+        ':',
+        field('transition', $.transition),
+        optional(';'),
+      ),
+      seq(
         field('name', $.identifier),
         ':',
         field('value', $.value),
@@ -235,6 +241,18 @@ module.exports = grammar({
     ),
 
     shadow_name: _ => token(prec(2, 'shadow')),
+
+    transition_name: _ => token(prec(2, 'transition')),
+
+    // width 500ms, height 500ms, background 1s
+    transition: $ => choice('none', commaSep1($.transition_entry)),
+
+    transition_entry: $ => seq(
+      field('property', alias($.identifier, $.transition_property)),
+      field('duration', $.duration),
+    ),
+
+    duration: _ => token(prec(1, /[0-9]+(\.[0-9]+)?(ms|s)/)),
 
     // decoration: underline overline — one or more keywords, `none` alone.
     decoration_name: _ => token(prec(2, 'decoration')),

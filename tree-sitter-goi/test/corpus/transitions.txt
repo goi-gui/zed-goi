@@ -1,0 +1,29 @@
+==================
+Transitions
+==================
+
+Window {
+	Rectangle {
+		transition: width 500ms, height 500ms, background 1s
+	}
+}
+
+---
+
+(source_file
+  (element
+    (element_name)
+    (element
+      (element_name)
+      (property
+        (transition_name)
+        (transition
+          (transition_entry
+            (transition_property)
+            (duration))
+          (transition_entry
+            (transition_property)
+            (duration))
+          (transition_entry
+            (transition_property)
+            (duration)))))))

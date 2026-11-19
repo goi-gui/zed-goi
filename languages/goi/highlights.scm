@@ -33,6 +33,11 @@
 (rotate_name) @property
 (angle) @number
 
+;; transition: width 500ms, background 1s — the property and its duration.
+(transition_name) @property
+(transition_property) @property
+(duration) @number
+
 ;; $children is a slot, not a value; $actions { ... } fills a named one.
 (slot
   "$" @punctuation.special

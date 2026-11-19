@@ -846,6 +846,10 @@
           {
             "type": "shadow_name",
             "named": true
+          },
+          {
+            "type": "transition_name",
+            "named": true
           }
         ]
       },
@@ -865,6 +869,16 @@
         "types": [
           {
             "type": "shadow",
+            "named": true
+          }
+        ]
+      },
+      "transition": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "transition",
             "named": true
           }
         ]
@@ -1200,6 +1214,47 @@
     }
   },
   {
+    "type": "transition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "transition_entry",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "transition_entry",
+    "named": true,
+    "fields": {
+      "duration": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "duration",
+            "named": true
+          }
+        ]
+      },
+      "property": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "transition_property",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "type",
     "named": true,
     "fields": {},
@@ -1468,6 +1523,10 @@
     "named": false
   },
   {
+    "type": "duration",
+    "named": true
+  },
+  {
     "type": "element_name",
     "named": true
   },
@@ -1562,6 +1621,14 @@
   {
     "type": "switch",
     "named": false
+  },
+  {
+    "type": "transition_name",
+    "named": true
+  },
+  {
+    "type": "transition_property",
+    "named": true
   },
   {
     "type": "true",

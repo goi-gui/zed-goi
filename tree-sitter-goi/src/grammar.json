@@ -985,6 +985,48 @@
               "type": "FIELD",
               "name": "name",
               "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "STRING",
+                  "value": "transition"
+                },
+                "named": true,
+                "value": "transition_name"
+              }
+            },
+            {
+              "type": "STRING",
+              "value": ":"
+            },
+            {
+              "type": "FIELD",
+              "name": "transition",
+              "content": {
+                "type": "SYMBOL",
+                "name": "transition"
+              }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ";"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "name",
+              "content": {
                 "type": "SYMBOL",
                 "name": "identifier"
               }
@@ -1025,6 +1067,88 @@
         "content": {
           "type": "STRING",
           "value": "shadow"
+        }
+      }
+    },
+    "transition_name": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 2,
+        "content": {
+          "type": "STRING",
+          "value": "transition"
+        }
+      }
+    },
+    "transition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "none"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "transition_entry"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "transition_entry"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "transition_entry": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "property",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "transition_property"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "duration",
+          "content": {
+            "type": "SYMBOL",
+            "name": "duration"
+          }
+        }
+      ]
+    },
+    "duration": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "PATTERN",
+          "value": "[0-9]+(\\.[0-9]+)?(ms|s)"
         }
       }
     },
