@@ -37,6 +37,7 @@
 (transition_name) @property
 (transition_property) @property
 (duration) @number
+(timing_function) @keyword
 
 ;; $children is a slot, not a value; $actions { ... } fills a named one.
 (slot

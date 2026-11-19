@@ -1138,6 +1138,84 @@
             "type": "SYMBOL",
             "name": "duration"
           }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "timing",
+              "content": {
+                "type": "SYMBOL",
+                "name": "timing_function"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "delay",
+              "content": {
+                "type": "SYMBOL",
+                "name": "delay"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "timing_function": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "linear"
+        },
+        {
+          "type": "STRING",
+          "value": "ease"
+        },
+        {
+          "type": "STRING",
+          "value": "ease-in"
+        },
+        {
+          "type": "STRING",
+          "value": "ease-out"
+        },
+        {
+          "type": "STRING",
+          "value": "ease-in-out"
+        }
+      ]
+    },
+    "delay": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "-"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "duration"
         }
       ]
     },

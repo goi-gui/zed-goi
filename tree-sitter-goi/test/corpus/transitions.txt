@@ -27,3 +27,40 @@ Window {
           (transition_entry
             (transition_property)
             (duration)))))))
+
+==================
+Transition timing and delay
+==================
+
+Window {
+	Rectangle {
+		transition: width 500ms linear, height 500ms ease-in 100ms, opacity 1s ease-in-out -50ms
+	}
+}
+
+---
+
+(source_file
+  (element
+    (element_name)
+    (element
+      (element_name)
+      (property
+        (transition_name)
+        (transition
+          (transition_entry
+            (transition_property)
+            (duration)
+            (timing_function))
+          (transition_entry
+            (transition_property)
+            (duration)
+            (timing_function)
+            (delay
+              (duration)))
+          (transition_entry
+            (transition_property)
+            (duration)
+            (timing_function)
+            (delay
+              (duration))))))))

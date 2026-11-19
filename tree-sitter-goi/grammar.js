@@ -244,13 +244,19 @@ module.exports = grammar({
 
     transition_name: _ => token(prec(2, 'transition')),
 
-    // width 500ms, height 500ms, background 1s
+    // width 500ms ease-out 100ms, height 500ms
     transition: $ => choice('none', commaSep1($.transition_entry)),
 
     transition_entry: $ => seq(
       field('property', alias($.identifier, $.transition_property)),
       field('duration', $.duration),
+      optional(field('timing', $.timing_function)),
+      optional(field('delay', $.delay)),
     ),
+
+    timing_function: _ => choice('linear', 'ease', 'ease-in', 'ease-out', 'ease-in-out'),
+
+    delay: $ => seq(optional('-'), $.duration),
 
     duration: _ => token(prec(1, /[0-9]+(\.[0-9]+)?(ms|s)/)),
 
