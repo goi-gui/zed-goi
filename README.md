@@ -15,6 +15,7 @@ language server for `.goi` design files.
 | Diagnostics, completion, hover, go-to-definition | `cmd/goipls` |
 | Icon name completion (Material Symbols) | `cmd/goipls` + `internal/text` |
 | `app.` / `window.` global completion | `cmd/goipls` |
+| Auto-import a sibling fragment | `cmd/goipls` completion + quick fix |
 | Wrap the component at the caret in a new one | `cmd/goipls` code action |
 | Window chrome docs (`disableResize`, `fullscreen`, size limits) | `cmd/goipls` |
 | `.goi` file icon | `icons/` + `icon_themes/goi.json` |
@@ -55,6 +56,11 @@ and the slots it fills. Typing an expression offers the file's ids; after
 `panel.` the element's properties complete. Hover explains a declaration, a shape
 field, a loop variable and a fragment, and `Ctrl`-click on an `import` path, its
 alias or an id jumps to its declaration.
+
+Fragment auto-import: completion at an element position offers the `.goi` files
+beside the document that are not imported yet, and accepting one writes the
+element plus an unnamed `import "./Name.goi"`. The unknown-element diagnostic
+has the same quick fix.
 
 **Wrap with component** (code-action menu) wraps the component at the caret or
 under the selection in a new one and indents its body. Nothing is written at the
