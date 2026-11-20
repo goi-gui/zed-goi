@@ -857,6 +857,23 @@
         }
       ]
     },
+    "slot_ref": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "$"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
     "property": {
       "type": "CHOICE",
       "members": [
@@ -867,13 +884,8 @@
               "type": "FIELD",
               "name": "name",
               "content": {
-                "type": "ALIAS",
-                "content": {
-                  "type": "STRING",
-                  "value": "shadow"
-                },
-                "named": true,
-                "value": "shadow_name"
+                "type": "SYMBOL",
+                "name": "shadow_name"
               }
             },
             {
@@ -1036,6 +1048,80 @@
               "name": "name",
               "content": {
                 "type": "SYMBOL",
+                "name": "scale_name"
+              }
+            },
+            {
+              "type": "STRING",
+              "value": ":"
+            },
+            {
+              "type": "FIELD",
+              "name": "scale",
+              "content": {
+                "type": "SYMBOL",
+                "name": "scale"
+              }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ";"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "name",
+              "content": {
+                "type": "SYMBOL",
+                "name": "theme_transition_name"
+              }
+            },
+            {
+              "type": "STRING",
+              "value": ":"
+            },
+            {
+              "type": "FIELD",
+              "name": "theme_transition",
+              "content": {
+                "type": "SYMBOL",
+                "name": "theme_transition"
+              }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ";"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "name",
+              "content": {
+                "type": "SYMBOL",
                 "name": "identifier"
               }
             },
@@ -1073,10 +1159,86 @@
         "type": "PREC",
         "value": 2,
         "content": {
-          "type": "STRING",
-          "value": "shadow"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "shadow"
+            },
+            {
+              "type": "STRING",
+              "value": "subtitleShadow"
+            }
+          ]
         }
       }
+    },
+    "scale_name": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 2,
+        "content": {
+          "type": "STRING",
+          "value": "scale"
+        }
+      }
+    },
+    "scale": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "none"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "scale_value"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "scale_value"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "scale_value"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "scale_value"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "scale_value"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "scale_value"
+            }
+          ]
+        }
+      ]
+    },
+    "scale_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "percentage"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        }
+      ]
     },
     "transition_name": {
       "type": "TOKEN",
@@ -1088,6 +1250,48 @@
           "value": "transition"
         }
       }
+    },
+    "theme_transition_name": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 2,
+        "content": {
+          "type": "STRING",
+          "value": "themeTransition"
+        }
+      }
+    },
+    "theme_transition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "none"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "crossfade"
+                },
+                {
+                  "type": "STRING",
+                  "value": "wipe"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "duration"
+            }
+          ]
+        }
+      ]
     },
     "transition": {
       "type": "CHOICE",
@@ -1369,27 +1573,36 @@
       }
     },
     "shadow": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "shadow_layer"
+          "type": "STRING",
+          "value": "none"
         },
         {
-          "type": "REPEAT",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": ","
-              },
-              {
-                "type": "SYMBOL",
-                "name": "shadow_layer"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "shadow_layer"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "shadow_layer"
+                  }
+                ]
               }
-            ]
-          }
+            }
+          ]
         }
       ]
     },
@@ -1817,6 +2030,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "gradient"
+        },
+        {
+          "type": "SYMBOL",
           "name": "list"
         },
         {
@@ -1830,6 +2047,10 @@
         {
           "type": "SYMBOL",
           "name": "percentage"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "duration"
         },
         {
           "type": "SYMBOL",
@@ -1850,6 +2071,10 @@
         {
           "type": "SYMBOL",
           "name": "reference"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "slot_ref"
         },
         {
           "type": "SYMBOL",
@@ -2185,6 +2410,39 @@
           }
         }
       ]
+    },
+    "gradient": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "linear-gradient"
+              },
+              {
+                "type": "STRING",
+                "value": "radial-gradient"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "PATTERN",
+            "value": "[^()\"\\n]*"
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          }
+        ]
+      }
     },
     "block_string": {
       "type": "TOKEN",

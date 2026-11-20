@@ -196,12 +196,18 @@ module.exports = grammar({
       optional(seq('{', repeat($._member), '}')),
     ),
 
+    // $actions inside len($actions): a slot read as a value.
+    slot_ref: $ => seq(
+      '$',
+      field('name', $.identifier),
+    ),
+
     // spacing: 8, and shadow: 2 2 5 #ff0000 inset. Only the name `shadow` takes
     // the shadow literal, which is what keeps `width: 8` a plain number; the
     // same holds for a decoration's juxtaposed keywords.
     property: $ => choice(
       seq(
-        field('name', alias('shadow', $.shadow_name)),
+        field('name', $.shadow_name),
         ':',
         field('shadow', $.shadow),
         optional(';'),
@@ -225,6 +231,18 @@ module.exports = grammar({
         optional(';'),
       ),
       seq(
+        field('name', $.scale_name),
+        ':',
+        field('scale', $.scale),
+        optional(';'),
+      ),
+      seq(
+        field('name', $.theme_transition_name),
+        ':',
+        field('theme_transition', $.theme_transition),
+        optional(';'),
+      ),
+      seq(
         field('name', $.identifier),
         ':',
         field('value', $.value),
@@ -232,9 +250,26 @@ module.exports = grammar({
       ),
     ),
 
-    shadow_name: _ => token(prec(2, 'shadow')),
+    shadow_name: _ => token(prec(2, choice('shadow', 'subtitleShadow'))),
+
+    scale_name: _ => token(prec(2, 'scale')),
+
+    // scale: none, 2, 50%, 2 0.5, 200% 50% 200%
+    scale: $ => choice(
+      'none',
+      $.scale_value,
+      seq($.scale_value, $.scale_value),
+      seq($.scale_value, $.scale_value, $.scale_value),
+    ),
+
+    scale_value: $ => choice($.percentage, $.number),
 
     transition_name: _ => token(prec(2, 'transition')),
+
+    theme_transition_name: _ => token(prec(2, 'themeTransition')),
+
+    // themeTransition: none, crossfade 500ms, wipe 500ms
+    theme_transition: $ => choice('none', seq(choice('crossfade', 'wipe'), $.duration)),
 
     // width 500ms ease-out 100ms, height 500ms
     transition: $ => choice('none', commaSep1($.transition_entry)),
@@ -273,8 +308,9 @@ module.exports = grammar({
 
     angle: _ => token(prec(1, /-?[0-9]+(\.[0-9]+)?(deg|rad|turn|grad)/)),
 
-    // A CSS-style shadow list: one or more layers, comma separated.
-    shadow: $ => seq($.shadow_layer, repeat(seq(',', $.shadow_layer))),
+    // A CSS-style shadow list: one or more layers, comma separated; none
+    // removes it.
+    shadow: $ => choice('none', seq($.shadow_layer, repeat(seq(',', $.shadow_layer)))),
 
     // x y [blur [spread]] [color] [inset]. An offset may be negative, written
     // the way CSS writes it.
@@ -339,15 +375,18 @@ module.exports = grammar({
     primary: $ => choice(
       $.block_string,
       $.string,
+      $.gradient,
       $.list,
       $.modifier,
       $.builtin_call,
       $.percentage,
+      $.duration,
       $.number,
       $.boolean,
       $.color,
       $.handler_call,
       $.reference,
+      $.slot_ref,
       $.identifier,
       $.map,
       $.parenthesized_expression,
@@ -407,6 +446,16 @@ module.exports = grammar({
       ':',
       field('value', $.value),
     ),
+
+    // linear-gradient(…), radial-gradient(…) — an unquoted gradient is a value,
+    // not a call; the runtime keeps the whole text like a string. A nested
+    // parenthesis is rare and is left to the error node rather than guessed.
+    gradient: _ => token(seq(
+      choice('linear-gradient', 'radial-gradient'),
+      '(',
+      /[^()"\n]*/,
+      ')',
+    )),
 
     // !"…"! — a string that spans lines, written as one token so a newline and
     // a `#` inside it are text, not layout or a comment.

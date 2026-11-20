@@ -493,7 +493,6 @@ Window { /* inline */ id: main; }
                       (primary
                         (identifier)))))))))))))
 
-
 ==================
 Unnamed import
 ==================
@@ -509,3 +508,181 @@ Column {}
     path: (string))
   root: (element
     name: (element_name)))
+
+==================
+Timed and scaled values
+==================
+
+Window {
+	themeTransition: wipe 500ms
+	Hero { duration: 300ms }
+	Image { crossfadeSrc: 500ms }
+	Text { subtitleShadow: 0 3 6 #00ff00 scale: 2 0.5 }
+	Button { onClick: page.scrollToNthChildSmooth(10, center, 400ms) }
+}
+
+---
+
+(source_file
+  (element
+    (element_name)
+    (property
+      (theme_transition_name)
+      (theme_transition
+        (duration)))
+    (element
+      (element_name)
+      (property
+        (identifier)
+        (value
+          (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (duration))))))))))))
+    (element
+      (element_name)
+      (property
+        (identifier)
+        (value
+          (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (duration))))))))))))
+    (element
+      (element_name)
+      (property
+        (shadow_name)
+        (shadow
+          (shadow_layer
+            (shadow_number)
+            (shadow_number)
+            (shadow_number)
+            (color))))
+      (property
+        (scale_name)
+        (scale
+          (scale_value
+            (number))
+          (scale_value
+            (number)))))
+    (element
+      (element_name)
+      (property
+        (identifier)
+        (value
+          (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (handler_call
+                            (reference
+                              (identifier)
+                              (identifier))
+                            (value
+                              (or_expression
+                                (and_expression
+                                  (equality_expression
+                                    (comparison_expression
+                                      (sum_expression
+                                        (term_expression
+                                          (unary_expression
+                                            (primary
+                                              (number))))))))))
+                            (value
+                              (or_expression
+                                (and_expression
+                                  (equality_expression
+                                    (comparison_expression
+                                      (sum_expression
+                                        (term_expression
+                                          (unary_expression
+                                            (primary
+                                              (identifier))))))))))
+                            (value
+                              (or_expression
+                                (and_expression
+                                  (equality_expression
+                                    (comparison_expression
+                                      (sum_expression
+                                        (term_expression
+                                          (unary_expression
+                                            (primary
+                                              (duration))))))))))))))))))))))))
+
+==================
+Gradients, slots and no shadow
+==================
+
+Window {
+	Rectangle {
+		background: linear-gradient(180deg, #00000099 0, #00000000 100%)
+		shadow: none
+	}
+	Text { text: len($actions) }
+	$actions
+}
+
+---
+
+(source_file
+  (element
+    (element_name)
+    (element
+      (element_name)
+      (property
+        (identifier)
+        (value
+          (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (gradient)))))))))))
+      (property
+        (shadow_name)
+        (shadow)))
+    (element
+      (element_name)
+      (property
+        (identifier)
+        (value
+          (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (builtin_call
+                            (builtin_name)
+                            (value
+                              (or_expression
+                                (and_expression
+                                  (equality_expression
+                                    (comparison_expression
+                                      (sum_expression
+                                        (term_expression
+                                          (unary_expression
+                                            (primary
+                                              (slot_ref
+                                                (identifier)))))))))))))))))))))))
+    (slot
+      (identifier))))
