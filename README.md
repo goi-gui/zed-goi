@@ -15,7 +15,7 @@ language server for `.goi` design files.
 | Diagnostics, completion, hover, go-to-definition | `cmd/goipls` |
 | Icon name completion (Material Symbols) | `cmd/goipls` + `internal/text` |
 | `app.` / `window.` global completion | `cmd/goipls` |
-| Wrap the element at the caret in a new one | `cmd/goipls` code action |
+| Wrap the component at the caret in a new one | `cmd/goipls` code action |
 | Window chrome docs (`disableResize`, `fullscreen`, size limits) | `cmd/goipls` |
 | `.goi` file icon | `icons/` + `icon_themes/goi.json` |
 
@@ -56,9 +56,10 @@ and the slots it fills. Typing an expression offers the file's ids; after
 field, a loop variable and a fragment, and `Ctrl`-click on an `import` path, its
 alias or an id jumps to its declaration.
 
-**Wrap with element** (code-action menu) wraps the element at the caret or under
-the selection in a new element, indents its body and selects the placeholder
-name, so typing `Row` or `Card` renames the wrapper. A client without snippet
+**Wrap with component** (code-action menu) wraps the component at the caret or
+under the selection in a new one and indents its body. Nothing is written at the
+name: the caret waits there, so typing `Row` or `Card` names the wrapper.
+Selecting several components wraps the run together. A client without snippet
 edits gets a literal `Column` instead. The window itself is not offered.
 
 ## File icon
