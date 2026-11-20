@@ -23,6 +23,7 @@
 ;; colour, which reads as a constant like every other role name.
 (shadow_name) @property
 (shadow_layer "inset" @keyword)
+(shadow_number) @number
 (shadow_color) @constant
 
 (scale_name) @property
