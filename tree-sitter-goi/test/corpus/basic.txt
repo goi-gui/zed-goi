@@ -492,3 +492,20 @@ Window { /* inline */ id: main; }
                     (unary_expression
                       (primary
                         (identifier)))))))))))))
+
+
+==================
+Unnamed import
+==================
+
+import "./Sidebar.goi"
+
+Column {}
+
+---
+
+(source_file
+  (import_statement
+    path: (string))
+  root: (element
+    name: (element_name)))

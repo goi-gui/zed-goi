@@ -104,20 +104,12 @@ module.exports = grammar({
       field('type', $.type),
     ),
 
-    // import "./Sidebar.goi" as Sidebar
-    // import Sidebar "./Sidebar.goi" — the alias first, as in Go.
+    // import "./Sidebar.goi"
+    // import Sidebar "./Sidebar.goi" — the alias first, as in Go; it may also
+    // be left out, and the path's base name becomes the element name.
     import_statement: $ => seq(
       'import',
-      field('alias', $.identifier),
-      field('path', $.string),
-      optional(';'),
-    ),
-
-    // import "./Sidebar.goi" as Sidebar
-    // import Sidebar "./Sidebar.goi" — the alias first, as in Go.
-    import_statement: $ => seq(
-      'import',
-      field('alias', $.identifier),
+      optional(field('alias', $.identifier)),
       field('path', $.string),
       optional(';'),
     ),
