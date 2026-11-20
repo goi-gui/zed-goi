@@ -62,8 +62,9 @@ Fragment auto-import: completion at an element position offers the `.goi` files
 under the project's `assets` directory that are not imported yet, and accepting
 one writes the element plus an unnamed `import "goi://dir/Name.goi"`. The
 unknown-element diagnostic has the same quick fix. Quoted import paths and
-`src:` values complete too: `goi://` paths from the assets root, relative paths
-from the document's directory.
+`src:` values complete too: `goi://` paths from the assets root, relative
+imports from the document's directory and relative `src` paths from the project
+directory.
 
 **Wrap with component** (code-action menu) wraps the component at the caret or
 under the selection in a new one and indents its body. Nothing is written at the
