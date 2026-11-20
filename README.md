@@ -20,7 +20,8 @@ language server for `.goi` design files.
 | Window chrome docs (`disableResize`, `fullscreen`, size limits) | `cmd/goipls` |
 | `.goi` file icon | `icons/` + `icon_themes/goi.json` |
 
-An import names its alias first (`import Sidebar "./Sidebar.goi"`), element
+An import may name its alias first (`import Sidebar "./Sidebar.goi"`) or leave
+it to the file (`import "goi://ui/Sidebar.goi"`), element
 names read as types, property names as fields, and value identifiers
 (`filled`, `primary`, `dark_mode`) as constants, because those are names the
 framework resolves rather than variables. A `bridge` block reads as Go fields:
@@ -58,9 +59,11 @@ field, a loop variable and a fragment, and `Ctrl`-click on an `import` path, its
 alias or an id jumps to its declaration.
 
 Fragment auto-import: completion at an element position offers the `.goi` files
-beside the document that are not imported yet, and accepting one writes the
-element plus an unnamed `import "./Name.goi"`. The unknown-element diagnostic
-has the same quick fix.
+under the project's `assets` directory that are not imported yet, and accepting
+one writes the element plus an unnamed `import "goi://dir/Name.goi"`. The
+unknown-element diagnostic has the same quick fix. Quoted import paths and
+`src:` values complete too: `goi://` paths from the assets root, relative paths
+from the document's directory.
 
 **Wrap with component** (code-action menu) wraps the component at the caret or
 under the selection in a new one and indents its body. Nothing is written at the
