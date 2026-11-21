@@ -1,6 +1,6 @@
 id = "goi"
 name = "Goi"
-version = "0.1.0"
+version = "0.1.1"
 schema_version = 1
 description = "Goi design file (.goi) support: syntax highlighting, diagnostics, completion, hover, outline and go-to-definition."
 repository = "https://github.com/goi-gui/zed-goi"
@@ -10,7 +10,7 @@ capabilities = []
 
 [lib]
 kind = "Rust"
-version = "0.1.0"
+version = "0.1.1"
 
 # The language server is a Go binary, so it is not bundled: install it with
 #   go install github.com/goi-gui/goi/cmd/goipls@latest
