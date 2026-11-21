@@ -17,7 +17,7 @@
 (number) @number
 (boolean) @boolean
 
-["import" "props" "bridge" "data" "type" "func" "if" "else" "for" "range" "switch" "case" "default" "continue" "break" "responsive" "conditional" "none"] @keyword
+["import" "props" "bridge" "data" "type" "func" "if" "else" "for" "range" "switch" "case" "default" "continue" "break" "responsive" "conditional" "state" "none"] @keyword
 
 ;; shadow: 2 2 5 primary, 0 4 12 #000000 inset — the insets keyword and a role
 ;; colour, which reads as a constant like every other role name.
@@ -104,6 +104,8 @@
 
 (map_entry
   name: (identifier) @attribute)
+
+(default_key) @keyword
 
 (map_type "map" @type)
 

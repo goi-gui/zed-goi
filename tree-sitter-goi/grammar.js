@@ -476,14 +476,24 @@ module.exports = grammar({
       ']',
     ),
 
-    // responsive { base: 8, md: 16 } and conditional { 10: bridge.wide }.
-    // The keyword is what tells these from a plain map value, and a
-    // conditional entry is a value and the condition that picks it.
+    // responsive { base: 8, md: 16 }, conditional { bridge.wide: 20 default: 10 }
+    // and state { hover: #ff0000 }. Any entry value may be another modifier, so
+    // the three forms nest.
     modifier: $ => choice(
-      // The entries of both blocks may be written one per line with no comma,
-      // which is how a design writes them once there is more than one.
+      // The entries may be written one per line with no comma, which is how a
+      // design writes them once there is more than one.
       seq(
         'responsive',
+        '{',
+        optional(seq(
+          $.map_entry,
+          repeat(seq(optional(','), $.map_entry)),
+          optional(','),
+        )),
+        '}',
+      ),
+      seq(
+        'state',
         '{',
         optional(seq(
           $.map_entry,
@@ -504,24 +514,21 @@ module.exports = grammar({
       ),
     ),
 
-    // The key is a literal, not a full expression: `- 1` after a condition is a
-    // subtraction, not the start of the next entry, and only a key that cannot
-    // begin with an operator keeps that reading unambiguous. The entries may be
-    // written one per line with no comma, which is how a design writes them.
-    conditional_entry: $ => seq(
-      field('value', $.conditional_key),
-      ':',
-      field('condition', $.value),
-    ),
-
-    conditional_key: $ => choice(
-      $.number,
-      $.percentage,
-      $.string,
-      $.boolean,
-      $.color,
-      $.identifier,
-      $.reference,
+    // The condition leads: `bridge.wide: 20 default: 10`. A default entry has
+    // no condition and is the fallback. A ternary in the condition would make
+    // the entry's own colon ambiguous, so a condition is the logical and
+    // comparison expression grammar, not the full ternary value.
+    conditional_entry: $ => choice(
+      seq(
+        alias('default', $.default_key),
+        ':',
+        field('value', $.value),
+      ),
+      seq(
+        field('condition', $.or_expression),
+        ':',
+        field('value', $.value),
+      ),
     ),
 
     string: $ => seq(

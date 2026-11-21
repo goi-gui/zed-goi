@@ -138,8 +138,13 @@ Window {
 			md: 16
 		}
 		background: conditional {
-			"#00ff0033": bridge.wide
-			4: !bridge.wide
+			bridge.wide: "#00ff0033"
+			!bridge.wide: 4
+			default: 8
+		}
+		borderColor: state {
+			default: red
+			hover: blue
 		}
 	}
 }
@@ -200,8 +205,17 @@ Window {
                         (primary
                           (modifier
                             (conditional_entry
-                              (conditional_key
-                                (string))
+                              (or_expression
+                                (and_expression
+                                  (equality_expression
+                                    (comparison_expression
+                                      (sum_expression
+                                        (term_expression
+                                          (unary_expression
+                                            (primary
+                                              (reference
+                                                (identifier)
+                                                (identifier))))))))))
                               (value
                                 (or_expression
                                   (and_expression
@@ -211,12 +225,20 @@ Window {
                                           (term_expression
                                             (unary_expression
                                               (primary
+                                                (string)))))))))))
+                            (conditional_entry
+                              (or_expression
+                                (and_expression
+                                  (equality_expression
+                                    (comparison_expression
+                                      (sum_expression
+                                        (term_expression
+                                          (unary_expression
+                                            (unary_expression
+                                              (primary
                                                 (reference
                                                   (identifier)
-                                                  (identifier))))))))))))
-                            (conditional_entry
-                              (conditional_key
-                                (number))
+                                                  (identifier)))))))))))
                               (value
                                 (or_expression
                                   (and_expression
@@ -225,11 +247,56 @@ Window {
                                         (sum_expression
                                           (term_expression
                                             (unary_expression
-                                              (unary_expression
-                                                (primary
-                                                  (reference
-                                                    (identifier)
-                                                    (identifier)))))))))))))))))))))))))))
+                                              (primary
+                                                (number)))))))))))
+                            (conditional_entry
+                              (default_key)
+                              (value
+                                (or_expression
+                                  (and_expression
+                                    (equality_expression
+                                      (comparison_expression
+                                        (sum_expression
+                                          (term_expression
+                                            (unary_expression
+                                              (primary
+                                                (number))))))))))))))))))))))
+      (property
+        (identifier)
+        (value
+          (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (modifier
+                            (map_entry
+                              (identifier)
+                              (value
+                                (or_expression
+                                  (and_expression
+                                    (equality_expression
+                                      (comparison_expression
+                                        (sum_expression
+                                          (term_expression
+                                            (unary_expression
+                                              (primary
+                                                (identifier)))))))))))
+                            (map_entry
+                              (identifier)
+                              (value
+                                (or_expression
+                                  (and_expression
+                                    (equality_expression
+                                      (comparison_expression
+                                        (sum_expression
+                                          (term_expression
+                                            (unary_expression
+                                              (primary
+                                                (identifier)))))))))))))))))))))))))
 
 ==================
 Rotate values

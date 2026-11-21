@@ -183,10 +183,10 @@
     "fields": {
       "condition": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
-            "type": "value",
+            "type": "or_expression",
             "named": true
           }
         ]
@@ -196,47 +196,18 @@
         "required": true,
         "types": [
           {
-            "type": "conditional_key",
+            "type": "value",
             "named": true
           }
         ]
       }
-    }
-  },
-  {
-    "type": "conditional_key",
-    "named": true,
-    "fields": {},
+    },
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
-          "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "color",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "percentage",
-          "named": true
-        },
-        {
-          "type": "reference",
-          "named": true
-        },
-        {
-          "type": "string",
+          "type": "default_key",
           "named": true
         }
       ]
@@ -1672,6 +1643,10 @@
     "named": false
   },
   {
+    "type": "default_key",
+    "named": true
+  },
+  {
     "type": "duration",
     "named": true
   },
@@ -1794,6 +1769,10 @@
   {
     "type": "shadow_number",
     "named": true
+  },
+  {
+    "type": "state",
+    "named": false
   },
   {
     "type": "switch",
