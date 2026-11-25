@@ -3,6 +3,8 @@
 Syntax highlighting, bracket matching, indentation, an element outline and a
 language server for `.goi` design files.
 
+Using VS Code or VSCodium? Install the [goi extension](https://marketplace.visualstudio.com/items?itemName=ksckaan1.goi).
+
 ## What it gives you
 
 | Feature | Source |
