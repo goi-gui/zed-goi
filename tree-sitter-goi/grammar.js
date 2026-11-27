@@ -34,6 +34,7 @@ module.exports = grammar({
         $.props_block,
         $.bridge_block,
         $.data_shape,
+        $.setup_block,
       )),
       field('root', $.element),
     ),
@@ -103,6 +104,68 @@ module.exports = grammar({
       field('name', $.identifier),
       field('type', $.type),
     ),
+
+    // setup { var name = "Kaan"; func greet() string { ... } }
+    // The body is Go source. It is parsed as balanced text here; the editor
+    // injects the Go grammar over `go_content` for highlighting.
+    setup_block: $ => seq(
+      'setup',
+      '{',
+      optional(field('body', $.go_content)),
+      '}',
+    ),
+
+    go_content: $ => repeat1(choice(
+      $.go_brace,
+      $.go_string,
+      $.go_raw_string,
+      $.go_rune,
+      $.go_line_comment,
+      $.go_block_comment,
+      $.go_token,
+    )),
+
+    go_brace: $ => seq('{', optional($.go_content), '}'),
+
+    go_string: _ => token(prec(2, /"(?:[^"\\\n]|\\.)*"/)),
+    go_raw_string: _ => token(prec(2, /`[^`]*`/)),
+    go_rune: _ => token(prec(2, /'(?:[^'\\\n]|\\.)*'/)),
+    go_line_comment: _ => token(prec(3, /\/\/[^\n]*/)),
+    go_block_comment: _ => token(prec(3, /\/\*[^*]*\*+([^/*][^*]*\*+)*\//)),
+    // Everything else in the body, including operators, identifiers and the
+    // slash of a division. Braces, quotes and backticks are handled above.
+    go_token: _ => token(prec(-1, /[^{}"'`]+/)),
+
+    // setup { var name = "Kaan"; func greet() string { ... } }
+    // The body is Go source. The grammar keeps it balanced; injections.scm
+    // asks Zed's Go grammar to highlight the body.
+    setup_block: $ => seq(
+      'setup',
+      '{',
+      optional(field('body', $.go_content)),
+      '}',
+    ),
+
+    go_content: $ => repeat1(choice(
+      $.go_brace,
+      $.go_string,
+      $.go_raw_string,
+      $.go_rune,
+      $.go_line_comment,
+      $.go_block_comment,
+      $.go_token,
+    )),
+
+    go_brace: $ => seq('{', optional($.go_content), '}'),
+
+    go_string: _ => token(prec(2, /"(?:[^"\\\n]|\\.)*"/)),
+    go_raw_string: _ => token(prec(2, /`[^`]*`/)),
+    go_rune: _ => token(prec(2, /'(?:[^'\\\n]|\\.)*'/)),
+    go_line_comment: _ => token(prec(3, /\/\/[^\n]*/)),
+    go_block_comment: _ => token(prec(3, /\/\*[^*]*\*+([^/*][^*]*\*+)*\//)),
+    // Everything else, including operators and the slash of a division.
+    // Braces, quotes and backticks are handled above.
+    go_token: _ => token(prec(-1, /[^{}"'`]+/)),
 
     // import "./Sidebar.goi"
     // import Sidebar "./Sidebar.goi" — the alias first, as in Go; it may also
@@ -379,6 +442,7 @@ module.exports = grammar({
       $.list,
       $.modifier,
       $.builtin_call,
+      $.setup_call,
       $.percentage,
       $.duration,
       $.number,
@@ -398,6 +462,18 @@ module.exports = grammar({
     // modulo operator. The conflict with primary lets the parser take the
     // reading that continues.
     percentage: $ => seq($.number, alias('%', $.percent_sign)),
+
+    // greet(name), reset() — a bare call to a setup function.
+    setup_call: $ => prec(2, seq(
+      field('name', $.identifier),
+      '(',
+      optional(seq(
+        $.value,
+        repeat(seq(',', $.value)),
+        optional(','),
+      )),
+      ')',
+    )),
 
     // formatf("%d items", count), len(rows), min(a, b) — a builtin call.
     builtin_call: $ => seq(

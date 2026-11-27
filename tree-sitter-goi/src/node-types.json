@@ -505,6 +505,60 @@
     }
   },
   {
+    "type": "go_brace",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "go_content",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "go_content",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "go_block_comment",
+          "named": true
+        },
+        {
+          "type": "go_brace",
+          "named": true
+        },
+        {
+          "type": "go_line_comment",
+          "named": true
+        },
+        {
+          "type": "go_raw_string",
+          "named": true
+        },
+        {
+          "type": "go_rune",
+          "named": true
+        },
+        {
+          "type": "go_string",
+          "named": true
+        },
+        {
+          "type": "go_token",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "handler_call",
     "named": true,
     "fields": {
@@ -801,6 +855,10 @@
           "named": true
         },
         {
+          "type": "setup_call",
+          "named": true
+        },
+        {
           "type": "slot_ref",
           "named": true
         },
@@ -1016,6 +1074,48 @@
     }
   },
   {
+    "type": "setup_block",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "go_content",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "setup_call",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "shadow",
     "named": true,
     "fields": {},
@@ -1209,6 +1309,10 @@
         },
         {
           "type": "props_block",
+          "named": true
+        },
+        {
+          "type": "setup_block",
           "named": true
         }
       ]
@@ -1691,6 +1795,30 @@
     "named": false
   },
   {
+    "type": "go_block_comment",
+    "named": true
+  },
+  {
+    "type": "go_line_comment",
+    "named": true
+  },
+  {
+    "type": "go_raw_string",
+    "named": true
+  },
+  {
+    "type": "go_rune",
+    "named": true
+  },
+  {
+    "type": "go_string",
+    "named": true
+  },
+  {
+    "type": "go_token",
+    "named": true
+  },
+  {
     "type": "gradient",
     "named": true
   },
@@ -1757,6 +1885,10 @@
   {
     "type": "scale_name",
     "named": true
+  },
+  {
+    "type": "setup",
+    "named": false
   },
   {
     "type": "shadow_color",

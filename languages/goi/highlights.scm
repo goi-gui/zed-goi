@@ -17,7 +17,7 @@
 (number) @number
 (boolean) @boolean
 
-["import" "props" "bridge" "data" "type" "func" "if" "else" "for" "range" "switch" "case" "default" "continue" "break" "responsive" "conditional" "state" "none"] @keyword
+["import" "props" "bridge" "data" "type" "setup" "func" "if" "else" "for" "range" "switch" "case" "default" "continue" "break" "responsive" "conditional" "state" "none"] @keyword
 
 ;; shadow: 2 2 5 primary, 0 4 12 #000000 inset — the insets keyword and a role
 ;; colour, which reads as a constant like every other role name.
@@ -75,6 +75,10 @@
   name: (identifier) @variable.parameter)
 
 (type_name) @type
+
+;; greet(name), reset() — a setup function called from a value or event.
+(setup_call
+  name: (identifier) @function.call)
 
 ;; A builtin call reads as a function.
 (builtin_call

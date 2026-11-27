@@ -1,0 +1,39 @@
+==================
+Setup block
+==================
+
+setup {
+	var name = "Kaan"
+	func greet() string { return name }
+}
+
+Window { Text { text: greet() } }
+
+---
+
+(source_file
+  (setup_block
+    (go_content
+      (go_token)
+      (go_string)
+      (go_token)
+      (go_brace
+        (go_content
+          (go_token)))))
+  (element
+    (element_name)
+    (element
+      (element_name)
+      (property
+        (identifier)
+        (value
+          (or_expression
+            (and_expression
+              (equality_expression
+                (comparison_expression
+                  (sum_expression
+                    (term_expression
+                      (unary_expression
+                        (primary
+                          (setup_call
+                            (identifier)))))))))))))))
